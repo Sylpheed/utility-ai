@@ -20,15 +20,25 @@ namespace Sylpheed.UtilityAI
         /// <returns>Score. Result is cached.</returns>
         public float Evaluate(float scoreThreshold = 0)
         {
-            // Highest possible score
-            var finalScore = Behavior.Weight;
-            
             // Evaluate each consideration
+            var finalScore = 1f;
             foreach (var consideration in Behavior.Considerations)
             {
-                if (finalScore < scoreThreshold) break;
+                // Stop evaluating if this decision can no longer beat the score threshold
+                if (finalScore * Behavior.Weight < scoreThreshold) break;
+                
+                // Stop evaluating if this decision is already vetoed by a consideration that scored 0.
+                if (Mathf.Approximately(finalScore, 0)) break;
+                
                 var score =  consideration.Evaluate(this);
+                finalScore *= score;
             }
+            
+            // Apply compensation factor based on number of considerations
+            if (finalScore > 0) finalScore = Mathf.Pow(finalScore, 1f / Behavior.Considerations.Count);
+            
+            // Apply weight
+            finalScore *= Behavior.Weight;
             
             Score = finalScore;
             return finalScore;
