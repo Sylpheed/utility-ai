@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Sylpheed.UtilityAI
@@ -14,13 +15,19 @@ namespace Sylpheed.UtilityAI
         protected abstract float OnEvaluate(UtilityAgent agent, GameObject target);
         #endregion
 
-        public float Evaluate(UtilityAgent agent, GameObject target)
+        /// <summary>
+        /// Evaluate the score for this consideration.
+        /// </summary>
+        /// <param name="agent"></param>
+        /// <param name="target"></param>
+        /// <returns>Clamped to 0..1</returns>
+        public float Evaluate(UtilityAgent agent, [CanBeNull] GameObject target = null)
         {
             var score = OnEvaluate(agent, target);
             return Mathf.Clamp(score, 0f, 1f);
         }
 
-        protected float EvaluateCurve(float normalizedValue) => _curve.Evaluate(normalizedValue);
-        protected float EvaluateCurve(float value, float max) => _curve.Evaluate(value / max);
+        protected float EvaluateCurve(float normalizedValue) => Mathf.Clamp01(_curve.Evaluate(normalizedValue));
+        protected float EvaluateCurve(float value, float max) => EvaluateCurve(value / max);
     }
 }
