@@ -8,6 +8,8 @@ namespace Sylpheed.UtilityAI
     public class UtilityAgent : MonoBehaviour
     {
         [SerializeField] private BehaviorSet _baseBehaviorSet;
+        [SerializeField] private float _targetSearchRadius = 100f;
+        [SerializeField] private float _maxTargetsPerDecision = 12;
 
         private List<BehaviorSet> _behaviorSets = new();
         private List<Behavior> _behaviors = new();
@@ -68,6 +70,23 @@ namespace Sylpheed.UtilityAI
             }
             
             return bestDecision;
+        }
+
+        private IReadOnlyList<UtilityTarget> SearchTargets()
+        {
+            // Get all utility targets within search radius and sort them by distance
+            var hits = Physics.SphereCastAll(transform.position, _targetSearchRadius, Vector3.down, _targetSearchRadius);
+            return hits
+                .Select(hit => hit.collider.GetComponentInParent<UtilityTarget>())
+                .Where(target => target)
+                .OrderBy(target => target.DistanceFromAgent(this))
+                .ToList();
+        }
+        
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.darkCyan;
+            Gizmos.DrawWireSphere(transform.position, _targetSearchRadius);
         }
     }
 }
