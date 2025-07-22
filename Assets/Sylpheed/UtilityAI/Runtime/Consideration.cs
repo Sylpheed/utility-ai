@@ -12,18 +12,17 @@ namespace Sylpheed.UtilityAI
         public int Priority => _priority;
         
         #region Overrides
-        protected abstract float OnEvaluate(UtilityAgent agent, GameObject target);
+        protected abstract float OnEvaluate(Decision decision);
         #endregion
 
         /// <summary>
         /// Evaluate the score for this consideration.
         /// </summary>
-        /// <param name="agent"></param>
-        /// <param name="target"></param>
+        /// <param name="decision"></param>
         /// <returns>Clamped to 0..1</returns>
-        public float Evaluate(UtilityAgent agent, [CanBeNull] GameObject target = null)
+        public float Evaluate(Decision decision)
         {
-            var score = OnEvaluate(agent, target);
+            var score = OnEvaluate(decision);
             return Mathf.Clamp(score, 0f, 1f);
         }
 

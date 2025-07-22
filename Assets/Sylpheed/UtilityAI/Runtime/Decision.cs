@@ -27,7 +27,7 @@ namespace Sylpheed.UtilityAI
             foreach (var consideration in Behavior.Considerations)
             {
                 if (finalScore < scoreThreshold) break;
-                var score =  consideration.Evaluate(Agent, Target);
+                var score =  consideration.Evaluate(this);
             }
             
             Score = finalScore;
