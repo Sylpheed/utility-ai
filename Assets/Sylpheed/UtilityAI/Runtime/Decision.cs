@@ -1,5 +1,4 @@
-﻿using JetBrains.Annotations;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Sylpheed.UtilityAI
 {
@@ -8,7 +7,7 @@ namespace Sylpheed.UtilityAI
         public Behavior Behavior { get; private set; }
         
         public UtilityAgent Agent { get; private set; }
-        public GameObject Target { get; private set; }
+        public UtilityTarget Target { get; private set; }
         
         public float Score { get; private set; }
         public float MaxScore => Behavior.Weight;
