@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Sylpheed.UtilityAI
@@ -11,18 +13,17 @@ namespace Sylpheed.UtilityAI
         [Header("Decision")]
         [SerializeField] private Consideration[] _considerations;
         [SerializeField] private float _weight = 1;
-
-        [Header("Target")] 
-        [Tooltip("When set, decisions will be evaluated per target based on this behavior.")]
-        [SerializeField] private bool _requiresTarget;
-        [Tooltip("When set, only evaluate targets with the specified tags.")]
-        [SerializeField] private Tag[] _requiredTargetTags;
         
         public IAction Action => _action;
         public IReadOnlyList<Consideration> Considerations => _considerations;
         public float Weight => _weight;
-        
-        public bool RequiresTarget => _requiresTarget;
-        public IReadOnlyCollection<Tag> RequiredTargetTags => _requiredTargetTags;
+        public bool RequiresTarget { get; private set; }
+        public IReadOnlyCollection<Tag> RequiredTargetTags { get; private set; }
+
+        private void OnEnable()
+        {
+            RequiresTarget = _considerations.Any(c => c.RequiresTarget);
+            RequiredTargetTags = _considerations.SelectMany(c => c.RequiredTargetTags).Distinct().ToList();
+        }
     }
 }

@@ -16,6 +16,8 @@ namespace Sylpheed.UtilityAI
         [SerializeField] private Tag[] _requiredTargetTags;
 
         public int Priority => _priority;
+        public bool RequiresTarget => _requiresTarget;
+        public IReadOnlyCollection<Tag> RequiredTargetTags => _requiredTargetTags;
         
         #region Overridables
         protected abstract float OnEvaluate(Decision decision);
