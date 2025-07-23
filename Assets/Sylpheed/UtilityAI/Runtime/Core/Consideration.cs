@@ -6,9 +6,14 @@ namespace Sylpheed.UtilityAI
     public abstract class Consideration : ScriptableObject
     {
         [SerializeField] private AnimationCurve _curve;
-        
         [Tooltip("Consideration with higher priority are evaluated first. Higher value means higher priority.")]
         [SerializeField] private int _priority;
+        
+        [Header("Target")] 
+        [Tooltip("When set, decisions will be evaluated per target based on this behavior.")]
+        [SerializeField] private bool _requiresTarget;
+        [Tooltip("When set, only evaluate targets with the specified tags.")]
+        [SerializeField] private Tag[] _requiredTargetTags;
 
         public int Priority => _priority;
         
@@ -23,6 +28,10 @@ namespace Sylpheed.UtilityAI
         /// <returns>Clamped to 0..1</returns>
         public float Evaluate(Decision decision)
         {
+            // Opt-out
+            if (_requiresTarget && !decision.Target) return 0;
+            if (_requiresTarget && !decision.Target.HasTags(_requiredTargetTags)) return 0;
+            
             var score = OnEvaluate(decision);
             return Mathf.Clamp(score, 0f, 1f);
         }

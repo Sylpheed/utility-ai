@@ -10,8 +10,6 @@ namespace Sylpheed.UtilityAI.Sylpheed.UtilityAI.Runtime.Considerations
 
         protected override float OnEvaluate(Decision decision)
         {
-            if (decision.Target == null) return 0f;
-            
             var distance = Vector3.Distance(decision.Agent.transform.position, decision.Target.transform.position);
             if (distance > _maxDistance) return 0f;
             
