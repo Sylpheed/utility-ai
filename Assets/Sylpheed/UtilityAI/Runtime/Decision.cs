@@ -42,5 +42,27 @@ namespace Sylpheed.UtilityAI
             Score = finalScore;
             return finalScore;
         }
+        
+        public class Builder
+        {
+            private readonly Decision _decision;
+
+            public Builder(UtilityAgent agent, Behavior behavior)
+            {
+                _decision = new Decision
+                {
+                    Agent = agent,
+                    Behavior = behavior
+                };
+            }
+            
+            public Decision Build() => _decision;
+
+            public Builder WithTarget(UtilityTarget target)
+            {
+                _decision.Target = target;
+                return this;
+            }
+        }
     }
 }

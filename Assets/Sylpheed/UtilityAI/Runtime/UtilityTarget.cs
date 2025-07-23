@@ -9,24 +9,24 @@ namespace Sylpheed.UtilityAI
     /// </summary>
     public class UtilityTarget : MonoBehaviour
     {
-        [SerializeField] private List<string> _tags;
+        [SerializeField] private List<Tag> _tags;
         
-        private readonly HashSet<string> _runTimeTags = new();
-        public IReadOnlyCollection<string> Tags => _runTimeTags;
+        private readonly HashSet<Tag> _runTimeTags = new();
+        public IReadOnlyCollection<Tag> Tags => _runTimeTags;
         
-        public void AddTags(params string[] tags)
+        public void AddTags(params Tag[] tags)
         {
             foreach (var t in tags) 
                 _runTimeTags.Add(t);
         }
 
-        public void RemoveTags(params string[] tags)
+        public void RemoveTags(params Tag[] tags)
         {
-            
             foreach (var t in tags) 
                 _runTimeTags.Add(t);
         }
         
         public float DistanceFromAgent(UtilityAgent agent) => Vector3.Distance(agent.transform.position, transform.position);
+        public bool HasTags(IReadOnlyCollection<Tag> tags) => _runTimeTags.IsSupersetOf(tags);
     }
 }

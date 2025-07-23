@@ -4,6 +4,6 @@ namespace Sylpheed.UtilityAI
 {
     public interface IAction
     {
-        void Execute(UtilityAgent actor, GameObject target = null);
+        void Execute(UtilityAgent actor, UtilityTarget target = null);
     }
 }
