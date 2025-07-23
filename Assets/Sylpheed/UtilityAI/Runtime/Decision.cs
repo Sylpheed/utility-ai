@@ -21,13 +21,16 @@ namespace Sylpheed.UtilityAI
         {
             // Evaluate each consideration
             var finalScore = 1f;
-            foreach (var consideration in Behavior.Considerations)
+            for (var i = 0; i < Behavior.Considerations.Count; i++)
             {
-                // Stop evaluating if this decision can no longer beat the score threshold
-                if (finalScore * Behavior.Weight < scoreThreshold) break;
+                var consideration = Behavior.Considerations[i];
                 
                 // Stop evaluating if this decision is already vetoed by a consideration that scored 0.
                 if (Mathf.Approximately(finalScore, 0)) break;
+                
+                // Stop evaluating if this decision can no longer beat the score threshold
+                var projectedMaxScore = Mathf.Pow(finalScore, 1f / (i + 1)) * Behavior.Weight;
+                if (projectedMaxScore < scoreThreshold) break;
                 
                 var score =  consideration.Evaluate(this);
                 finalScore *= score;
