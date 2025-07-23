@@ -38,5 +38,6 @@ MonoBehaviour:
     m_RotationOrder: 4
   _priority: 0
   _requiresTarget: 1
-  _requiredTargetTags: []
+  _requiredTargetTags:
+  - {fileID: 11400000, guid: 7e162cb81b871604bbe96c11cee73086, type: 2}
   _maxDistance: 10

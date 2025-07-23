@@ -616,7 +616,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79c5b51bb6504956992b868c87e0093b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tags: []
+  _tags:
+  - {fileID: 11400000, guid: 7e162cb81b871604bbe96c11cee73086, type: 2}
 --- !u!114 &1156334621
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -900,7 +901,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79c5b51bb6504956992b868c87e0093b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tags: []
+  _tags:
+  - {fileID: 11400000, guid: 7e162cb81b871604bbe96c11cee73086, type: 2}
 --- !u!4 &1799190484
 Transform:
   m_ObjectHideFlags: 0

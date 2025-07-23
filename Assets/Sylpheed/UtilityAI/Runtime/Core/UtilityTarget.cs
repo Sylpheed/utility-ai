@@ -13,7 +13,12 @@ namespace Sylpheed.UtilityAI
         
         private readonly HashSet<Tag> _runTimeTags = new();
         public IReadOnlyCollection<Tag> Tags => _runTimeTags;
-        
+
+        private void Awake()
+        {
+            AddTags(_tags.ToArray());
+        }
+
         public void AddTags(params Tag[] tags)
         {
             foreach (var t in tags) 

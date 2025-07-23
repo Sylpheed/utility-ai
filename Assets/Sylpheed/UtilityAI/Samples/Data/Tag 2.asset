@@ -10,5 +10,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: efbf742732d04a10b1e298a10e3d11e4, type: 3}
-  m_Name: Sample Tag 3
+  m_Name: Tag 2
   m_EditorClassIdentifier: 
