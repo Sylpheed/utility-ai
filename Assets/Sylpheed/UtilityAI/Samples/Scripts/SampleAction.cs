@@ -7,9 +7,9 @@ namespace Sylpheed.UtilityAI.Samples
     {
         [SerializeField] private float _damage = 1f;
         
-        public void Execute(UtilityAgent actor, GameObject target = null)
+        public void Execute(UtilityAgent actor, UtilityTarget target = null)
         {
-            
+            Debug.Log($"[Action] {nameof(SampleAction)} executed. Agent: {actor.gameObject.name}. Target: {target?.gameObject.name ?? "None" }");
         }
     }
 }

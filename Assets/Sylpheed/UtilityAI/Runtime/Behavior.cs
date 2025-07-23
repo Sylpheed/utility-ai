@@ -7,6 +7,8 @@ namespace Sylpheed.UtilityAI
     public class Behavior : ScriptableObject
     {
         [SerializeReference, SubclassSelector] private IAction _action;
+        
+        [Header("Decision")]
         [SerializeField] private Consideration[] _considerations;
         [SerializeField] private float _weight = 1;
 

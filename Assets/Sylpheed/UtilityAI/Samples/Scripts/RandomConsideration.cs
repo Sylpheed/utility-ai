@@ -11,7 +11,7 @@ namespace Sylpheed.UtilityAI.Samples
         protected override float OnEvaluate(Decision decision)
         {
             var roll = Random.Range(_min, _max);
-            return EvaluateCurve(roll, _max);
+            return EvaluateCurve(roll, _min, _max);
         }
     }
 }

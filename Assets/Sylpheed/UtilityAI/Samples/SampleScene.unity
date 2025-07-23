@@ -261,6 +261,8 @@ MonoBehaviour:
   _baseBehaviorSet: {fileID: 11400000, guid: a71cc145b9ced7e4fb9a98a001a35e49, type: 2}
   _targetSearchRadius: 100
   _maxTargetsPerDecision: 12
+  _decisionInterval: 1
+  _logToConsole: 1
 --- !u!4 &141924622
 Transform:
   m_ObjectHideFlags: 0
@@ -703,7 +705,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1799190484}
-  - component: {fileID: 1799190483}
   - component: {fileID: 1799190482}
   m_Layer: 0
   m_Name: Enemy
@@ -725,21 +726,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tags: []
---- !u!114 &1799190483
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1799190481}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 844e954b86b140b4b34f87888b87af28, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _baseBehaviorSet: {fileID: 0}
-  _targetSearchRadius: 100
-  _maxTargetsPerDecision: 12
 --- !u!4 &1799190484
 Transform:
   m_ObjectHideFlags: 0

@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b7042c9fd6f4eddb0f2da94a2f6bab5, type: 3}
+  m_Name: Behavior 1
+  m_EditorClassIdentifier: 
+  _action:
+    rid: 5879897300098613433
+  _considerations:
+  - {fileID: 11400000, guid: 9d684b2ca979a66439ef09e3ecc3dc4e, type: 2}
+  - {fileID: 11400000, guid: e81190b4f99d7094e8873b5671ad949c, type: 2}
+  _weight: 1
+  _requiresTarget: 0
+  _requiredTargetTags: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 5879897300098613433
+      type: {class: SampleAction, ns: Sylpheed.UtilityAI.Samples, asm: Sylpheed.UtilityAI}
+      data:
+        _damage: 1

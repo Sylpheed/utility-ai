@@ -36,6 +36,7 @@ namespace Sylpheed.UtilityAI
                 var decisions = BuildDecisions();
                 var decision = Decide(decisions);
                 EnactDecision(decision);
+                _decisionTimer = 0;
             }
             else
             {
@@ -52,15 +53,15 @@ namespace Sylpheed.UtilityAI
             }
             
             // Invoke a new action if decision changed based on behavior and target
-            if (decision.Behavior != CurrentDecision.Behavior && 
-                decision.Target != CurrentDecision.Target)
+            if (decision.Behavior != CurrentDecision?.Behavior && 
+                decision.Target != CurrentDecision?.Target)
             {
                 decision.Behavior.Action?.Execute(this, decision.Target);
             }
             
             CurrentDecision = decision;
             
-            Debug.Log($"[Decision] {decision.Behavior.name} enacted. Score: {decision.Score}");
+            Debug.Log($"[Decision] {decision.Behavior.name} enacted. Score: {decision.Score:P2}");
         }
 
         #region Add/Remove Behaviors
