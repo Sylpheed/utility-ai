@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b7042c9fd6f4eddb0f2da94a2f6bab5, type: 3}
-  m_Name: Behavior 1
+  m_Name: Behavior - No Target
   m_EditorClassIdentifier: 
   _action:
     rid: 5879897300098613433

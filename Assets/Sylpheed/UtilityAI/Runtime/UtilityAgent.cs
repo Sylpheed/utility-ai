@@ -56,17 +56,18 @@ namespace Sylpheed.UtilityAI
             if (decision.Behavior != CurrentDecision?.Behavior && 
                 decision.Target != CurrentDecision?.Target)
             {
+                Debug.Log($"[Agent: {gameObject.name}] [{decision.Behavior.name}] decision enacted. Score: {decision.Score:P2}");
                 decision.Behavior.Action?.Execute(this, decision.Target);
             }
             
             CurrentDecision = decision;
-            
-            Debug.Log($"[Decision] {decision.Behavior.name} enacted. Score: {decision.Score:P2}");
         }
 
         #region Add/Remove Behaviors
         public void AddBehaviors(BehaviorSet behaviorSet)
         {
+            if (behaviorSet == null) return;
+            
             _behaviorSets.Add(behaviorSet);
             _behaviors.AddRange(behaviorSet.Behaviors);
         }
@@ -78,6 +79,8 @@ namespace Sylpheed.UtilityAI
 
         public void RemoveBehaviors(BehaviorSet behaviorSet)
         {
+            if (behaviorSet == null) return;
+            
             _behaviorSets.Remove(behaviorSet);
             foreach (var behavior in behaviorSet.Behaviors)
                 _behaviors.Remove(behavior);
@@ -156,7 +159,7 @@ namespace Sylpheed.UtilityAI
             var targets = _searchHits
                 .Take(size)
                 .Select(hit => hit.collider.GetComponentInParent<UtilityTarget>())
-                .Where(target => target)
+                .Where(target => target && target.enabled)
                 .OrderBy(target => target.DistanceFromAgent(this))
                 .ToList();
 
