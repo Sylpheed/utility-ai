@@ -12,6 +12,10 @@ namespace Sylpheed.UtilityAI
         public float Score { get; private set; }
         public float MaxScore => Behavior.Weight;
         
+        private object _data;
+        public T Data<T>() where T : class => _data as T;
+        public bool TryGetData<T>(out T data) where T : class => (data = _data as T) != null;
+        
         /// <summary>
         /// Evaluates all considerations for this behavior against a specific target (if applicable)
         /// </summary>
@@ -64,6 +68,12 @@ namespace Sylpheed.UtilityAI
             public Builder WithTarget(UtilityTarget target)
             {
                 _decision.Target = target;
+                return this;
+            }
+            
+            public Builder WithData(object data)
+            {
+                _decision._data =  data;
                 return this;
             }
         }

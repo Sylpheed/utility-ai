@@ -35,7 +35,7 @@ namespace Sylpheed.UtilityAI
             if (_requiresTarget && !decision.Target.HasTags(_requiredTargetTags)) return 0;
             
             var score = OnEvaluate(decision);
-            return Mathf.Clamp(score, 0f, 1f);
+            return Mathf.Clamp01(score);
         }
 
         #region Curve Evaluation
