@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,7 +14,7 @@ namespace Sylpheed.UtilityAI
         [Tooltip("When set, decisions will be evaluated per target based on this behavior.")]
         [SerializeField] private bool _requiresTarget;
         [Tooltip("When set, only evaluate targets with the specified tags.")]
-        [SerializeField] private Tag[] _requiredTargetTags;
+        [SerializeField] private Tag[] _requiredTargetTags = Array.Empty<Tag>();
 
         public int Priority => _priority;
         public bool RequiresTarget => _requiresTarget;

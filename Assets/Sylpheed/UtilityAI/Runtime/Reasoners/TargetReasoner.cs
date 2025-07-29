@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Sylpheed.UtilityAI.Reasoners
 {
     [System.Serializable]
-    public class TargetedReasoner : Reasoner
+    public class TargetReasoner : Reasoner
     {
         public override IReadOnlyCollection<Decision> BuildDecisions(UtilityAgent agent, Behavior behavior, IReadOnlyList<UtilityTarget> targets)
         {
@@ -15,7 +15,7 @@ namespace Sylpheed.UtilityAI.Reasoners
 
             if (!behavior.RequiresTarget)
             {
-                Debug.LogWarning($"{nameof(TargetedReasoner)} requires {nameof(Behavior)}.{nameof(Behavior.RequiresTarget)} to be true.");
+                Debug.LogWarning($"{nameof(TargetReasoner)} requires {nameof(Behavior)}.{nameof(Behavior.RequiresTarget)} to be true.");
                 return Array.Empty<Decision>();
             }
             

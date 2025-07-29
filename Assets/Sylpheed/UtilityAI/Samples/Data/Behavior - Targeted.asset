@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b7042c9fd6f4eddb0f2da94a2f6bab5, type: 3}
   m_Name: Behavior - Targeted
   m_EditorClassIdentifier: 
+  _reasoner:
+    rid: 5879897458726666299
   _action:
     rid: 5879897300098613433
   _considerations:
@@ -19,12 +21,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e81190b4f99d7094e8873b5671ad949c, type: 2}
   - {fileID: 11400000, guid: afff57aebe904494a811c3ed2ae77fa1, type: 2}
   _weight: 1
-  _requiresTarget: 1
-  _requiredTargetTags: []
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 5879897300098613433
       type: {class: SampleAction, ns: Sylpheed.UtilityAI.Samples, asm: Sylpheed.UtilityAI}
       data:
         _damage: 1
+    - rid: 5879897458726666299
+      type: {class: TargetedReasoner, ns: Sylpheed.UtilityAI.Reasoners, asm: Sylpheed.UtilityAI}
