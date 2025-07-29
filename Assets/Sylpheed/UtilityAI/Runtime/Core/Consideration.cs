@@ -62,5 +62,20 @@ namespace Sylpheed.UtilityAI
         /// <returns></returns>
         protected float EvaluateCurve(float value, float min, float max) => EvaluateCurve(value - min, max - min);
         #endregion
+        
+        /// <summary>
+        /// Contains constants for consideration score
+        /// </summary>
+        public static class Result
+        {
+            /// <summary>
+            /// Veto out the decision. Results to a score of 0.
+            /// </summary>
+            public static readonly float OptOut = 0f;
+            /// <summary>
+            /// Fully opt-in to the consideration, giving a maximum score of 1.
+            /// </summary>
+            public static readonly float OptIn = 1f;
+        }
     }
 }

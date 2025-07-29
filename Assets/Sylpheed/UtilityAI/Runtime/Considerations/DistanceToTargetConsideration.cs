@@ -14,8 +14,6 @@ namespace Sylpheed.UtilityAI.Considerations
             var distance = Vector3.Distance(decision.Agent.transform.position, decision.Target.transform.position);
             if (distance > _maxDistance) return 0f;
             if (distance < _minDistance) return 1f;
-
-            var tag = decision.Data<Tag>();
             
             return EvaluateCurve(distance, _minDistance, _maxDistance);
         }
