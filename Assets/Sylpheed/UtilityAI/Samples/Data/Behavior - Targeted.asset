@@ -12,13 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b7042c9fd6f4eddb0f2da94a2f6bab5, type: 3}
   m_Name: Behavior - Targeted
   m_EditorClassIdentifier: 
-  _reasoner:
-    rid: 5879897479385448515
   _action:
     rid: 5879897300098613433
+  _reasoner:
+    rid: 5879897479385448515
   _considerations:
-  - {fileID: 11400000, guid: 9d684b2ca979a66439ef09e3ecc3dc4e, type: 2}
-  - {fileID: 11400000, guid: e81190b4f99d7094e8873b5671ad949c, type: 2}
+  - {fileID: 11400000, guid: 3e1b6683dac1a244a81ba9240a3aa9a2, type: 2}
   - {fileID: 11400000, guid: afff57aebe904494a811c3ed2ae77fa1, type: 2}
   _weight: 1
   references:

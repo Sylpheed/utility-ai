@@ -26,7 +26,7 @@ namespace Sylpheed.UtilityAI
         {
             RebuildCache();
         }
-
+        
         private void OnValidate()
         {
             RebuildCache();

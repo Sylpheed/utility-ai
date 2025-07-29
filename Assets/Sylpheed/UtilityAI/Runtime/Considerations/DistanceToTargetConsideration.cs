@@ -3,7 +3,7 @@
 namespace Sylpheed.UtilityAI.Considerations
 {
     [CreateAssetMenu(fileName = "Distance To Target", menuName = "Utility AI/Consideration/Distance To Target")]
-    public class DistanceToTargetConsideration : Consideration
+    public class DistanceToTargetConsideration : CurveConsideration
     {
         [Header("Distance To Target")] 
         [SerializeField] private float _minDistance;

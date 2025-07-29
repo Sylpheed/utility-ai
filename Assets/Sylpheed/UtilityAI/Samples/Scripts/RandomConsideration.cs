@@ -1,9 +1,10 @@
-﻿using UnityEngine;
+﻿using Sylpheed.UtilityAI.Considerations;
+using UnityEngine;
 
 namespace Sylpheed.UtilityAI.Samples
 {
     [CreateAssetMenu(fileName = "Random", menuName = "Utility AI/Consideration/Samples/Random")]
-    public class RandomConsideration : Consideration
+    public class RandomConsideration : CurveConsideration
     {
         [SerializeField] private float _min = 0f;
         [SerializeField] private float _max = 1f;
