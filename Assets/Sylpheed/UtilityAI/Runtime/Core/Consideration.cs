@@ -9,7 +9,7 @@ namespace Sylpheed.UtilityAI
         [Tooltip("Consideration with higher priority are evaluated first. Higher value means higher priority.")]
         [SerializeField] private int _priority;
         
-        [Header("Target")] 
+        [Header("Target Filter")] 
         [Tooltip("When set, decisions will be evaluated per target based on this behavior.")]
         [SerializeField] private bool _requiresTarget;
         [Tooltip("When set, only evaluate targets with the specified tags.")]

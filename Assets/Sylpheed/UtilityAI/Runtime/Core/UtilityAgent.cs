@@ -22,6 +22,7 @@ namespace Sylpheed.UtilityAI
         private List<Behavior> _behaviors = new();
         private readonly RaycastHit[] _searchHits = new RaycastHit[30];
         private float _decisionTimer;
+        private Dictionary<int, float> _scoreCache = new(); // Key is hash of agent, consideration, data, and target
 
         private void Awake()
         {
@@ -97,6 +98,9 @@ namespace Sylpheed.UtilityAI
         {
             if (!decisions.Any()) return null;
             
+            // Clear score cache
+            _scoreCache.Clear();
+            
             // Evaluate all decisions
             Decision bestDecision = null;
             var bestScore = 0f;
@@ -106,7 +110,7 @@ namespace Sylpheed.UtilityAI
                 if (decision.MaxScore < bestScore) continue;
                 
                 // Get score for this decision
-                var score = decision.Evaluate(bestScore);
+                var score = decision.Evaluate(bestScore, _scoreCache);
                 
                 // Decision beats current best decision. Update best decision.
                 if (score > bestScore)

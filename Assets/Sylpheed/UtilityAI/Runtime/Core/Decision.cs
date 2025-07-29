@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Sylpheed.UtilityAI
 {
@@ -15,13 +16,14 @@ namespace Sylpheed.UtilityAI
         private object _data;
         public T Data<T>() where T : class => _data as T;
         public bool TryGetData<T>(out T data) where T : class => (data = _data as T) != null;
-        
+
         /// <summary>
         /// Evaluates all considerations for this behavior against a specific target (if applicable)
         /// </summary>
         /// <param name="scoreThreshold">Stops evaluating remaining considerations if this decision can no longer score higher than the threshold.</param>
+        /// /// <param name="scoreCache">Cache of score based on a permutation of agent, target, consideration, and data. If cached, skip evaluation and use cache.</param>
         /// <returns>Score. Result is cached.</returns>
-        public float Evaluate(float scoreThreshold = 0)
+        public float Evaluate(float scoreThreshold, IDictionary<int, float> scoreCache)
         {
             // Evaluate each consideration
             var finalScore = 1f;
@@ -36,7 +38,14 @@ namespace Sylpheed.UtilityAI
                 var projectedMaxScore = Mathf.Pow(finalScore, 1f / (i + 1)) * Behavior.Weight;
                 if (projectedMaxScore < scoreThreshold) break;
                 
-                var score =  consideration.Evaluate(this);
+                // Skip evaluation if score is already cached. Else, evaluate
+                var hash = BuildConsiderationHash(consideration);
+                if (!scoreCache.TryGetValue(hash, out var score))
+                {
+                    score = consideration.Evaluate(this);
+                    scoreCache[hash] = score;
+                }
+                
                 finalScore *= score;
             }
             
@@ -48,6 +57,16 @@ namespace Sylpheed.UtilityAI
             
             Score = finalScore;
             return finalScore;
+        }
+
+        private int BuildConsiderationHash(Consideration consideration)
+        {
+            var hash = 17;
+            hash = hash * 23 + (Agent?.GetHashCode() ?? 0);
+            hash = hash * 23 + (Target?.GetHashCode() ?? 0);
+            hash = hash * 23 + (_data?.GetHashCode() ?? 0);
+            hash = hash * 23 + (consideration?.GetHashCode() ?? 0);
+            return hash;
         }
         
         public class Builder
@@ -62,7 +81,7 @@ namespace Sylpheed.UtilityAI
                     Behavior = behavior
                 };
             }
-            
+
             public Decision Build() => _decision;
 
             public Builder WithTarget(UtilityTarget target)
