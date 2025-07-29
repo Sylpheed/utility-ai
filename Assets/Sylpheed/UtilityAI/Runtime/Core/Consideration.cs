@@ -6,6 +6,7 @@ namespace Sylpheed.UtilityAI
 {
     public abstract class Consideration : ScriptableObject
     {
+        [Header("Scoring")]
         [SerializeField] private AnimationCurve _curve;
         [Tooltip("Consideration with higher priority are evaluated first. Higher value means higher priority.")]
         [SerializeField] private int _priority;

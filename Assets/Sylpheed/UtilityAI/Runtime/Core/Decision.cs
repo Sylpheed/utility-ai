@@ -71,7 +71,8 @@ namespace Sylpheed.UtilityAI
                 return this;
             }
             
-            public Builder WithData(object data)
+            public Builder WithData<T>(T data) 
+                where T : class
             {
                 _decision._data =  data;
                 return this;
