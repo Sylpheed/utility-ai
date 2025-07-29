@@ -125,31 +125,10 @@ namespace Sylpheed.UtilityAI
             var allTargets = SearchTargets();
             
             // Build decisions from behaviors
-            var decisions = new List<Decision>();
-            foreach (var behavior in _behaviors)
-            {
-                if (behavior.RequiresTarget)
-                {
-                    // Create decision for each valid target with the same tags
-                    var targetDecisions = allTargets
-                        .Where(target => target.HasTags(behavior.RequiredTargetTags))
-                        .Select(target =>
-                            new Decision.Builder(this, behavior)
-                                .WithTarget(target)
-                                .Build()
-                        )
-                        .ToList();
-                    decisions.AddRange(targetDecisions);
-                }
-                else
-                {
-                    // Create decision without a target
-                    var decision = new Decision.Builder(this, behavior).Build();
-                    decisions.Add(decision);
-                }
-            }
-            
-            return decisions;
+            return _behaviors
+                .SelectMany(behavior => behavior.BuildDecisions(this, allTargets))
+                .OrderByDescending(decision => decision.Behavior.Weight)
+                .ToList();
         }
 
         private IReadOnlyList<UtilityTarget> SearchTargets()

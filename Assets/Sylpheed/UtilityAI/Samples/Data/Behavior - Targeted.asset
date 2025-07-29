@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Behavior - Targeted
   m_EditorClassIdentifier: 
   _reasoner:
-    rid: 5879897458726666299
+    rid: 5879897479385448515
   _action:
     rid: 5879897300098613433
   _considerations:
@@ -24,11 +24,10 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
     - rid: 5879897300098613433
       type: {class: SampleAction, ns: Sylpheed.UtilityAI.Samples, asm: Sylpheed.UtilityAI}
       data:
         _damage: 1
-    - rid: 5879897458726666299
-      type: {class: TargetedReasoner, ns: Sylpheed.UtilityAI.Reasoners, asm: Sylpheed.UtilityAI}
+    - rid: 5879897479385448515
+      type: {class: TargetReasoner, ns: Sylpheed.UtilityAI.Reasoners, asm: Sylpheed.UtilityAI}
+      data: 

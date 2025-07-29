@@ -8,9 +8,11 @@ namespace Sylpheed.UtilityAI
     [CreateAssetMenu(fileName = "Behavior", menuName = "Utility AI/Behavior")]
     public class Behavior : ScriptableObject
     {
+        [Header("Action")]
         [SerializeReference, SubclassSelector] private IAction _action;
         
         [Header("Decision")]
+        [SerializeReference, SubclassSelector] private Reasoner _reasoner;
         [SerializeField] private Consideration[] _considerations;
         [SerializeField] private float _weight = 1;
         
@@ -29,6 +31,9 @@ namespace Sylpheed.UtilityAI
         {
             RebuildCache();
         }
+
+        public IReadOnlyCollection<Decision> BuildDecisions(UtilityAgent agent, IReadOnlyList<UtilityTarget> targets) 
+            => _reasoner.BuildDecisions(agent, this, targets);
 
         private void RebuildCache()
         {

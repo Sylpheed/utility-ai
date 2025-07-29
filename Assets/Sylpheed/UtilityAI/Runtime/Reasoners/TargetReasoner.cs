@@ -10,9 +10,7 @@ namespace Sylpheed.UtilityAI.Reasoners
     {
         public override IReadOnlyCollection<Decision> BuildDecisions(UtilityAgent agent, Behavior behavior, IReadOnlyList<UtilityTarget> targets)
         {
-            // Build decisions from behaviors
-            var decisions = new List<Decision>();
-
+            // Ignore non-targeted behavior
             if (!behavior.RequiresTarget)
             {
                 Debug.LogWarning($"{nameof(TargetReasoner)} requires {nameof(Behavior)}.{nameof(Behavior.RequiresTarget)} to be true.");
