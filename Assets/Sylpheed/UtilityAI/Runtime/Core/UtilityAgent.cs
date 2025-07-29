@@ -106,7 +106,7 @@ namespace Sylpheed.UtilityAI
             var bestScore = 0f;
             foreach (var decision in decisions)
             {
-                // Ignore decision that can no longer reach the current highest score
+                // Ignore decision if it can no longer beat the current highest score
                 if (decision.MaxScore < bestScore) continue;
                 
                 // Get score for this decision

@@ -19,7 +19,11 @@ MonoBehaviour:
   _considerations:
   - {fileID: 11400000, guid: 3e1b6683dac1a244a81ba9240a3aa9a2, type: 2}
   - {fileID: 11400000, guid: afff57aebe904494a811c3ed2ae77fa1, type: 2}
+  - {fileID: 11400000, guid: 3e1b6683dac1a244a81ba9240a3aa9a2, type: 2}
   _weight: 1
+  _requiresTarget: 1
+  _requiredTargetTags:
+  - {fileID: 11400000, guid: 7e162cb81b871604bbe96c11cee73086, type: 2}
   references:
     version: 2
     RefIds:

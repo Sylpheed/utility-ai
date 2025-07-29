@@ -13,9 +13,9 @@ namespace Sylpheed.UtilityAI
         [SerializeField] private bool _shouldCacheScore = true;
         
         [Header("Target Filter")] 
-        [Tooltip("When set, decisions will be evaluated per target based on this behavior.")]
+        [Tooltip("When set, opt-out if there's no target.")]
         [SerializeField] private bool _requiresTarget;
-        [Tooltip("When set, only evaluate targets with the specified tags.")]
+        [Tooltip("When set, opt-out if the target to be evaluated doesn't contain all the specified tags.")]
         [SerializeField] private Tag[] _requiredTargetTags = Array.Empty<Tag>();
 
         public int Priority => _priority;

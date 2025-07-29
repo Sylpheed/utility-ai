@@ -4,6 +4,7 @@ namespace Sylpheed.UtilityAI.Considerations
 {
     public abstract class CurveConsideration : Consideration
     {
+        [Header("Curve")]
         [SerializeField] private AnimationCurve _curve;
         
         /// <summary>

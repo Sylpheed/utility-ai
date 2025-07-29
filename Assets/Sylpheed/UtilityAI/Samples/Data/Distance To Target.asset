@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a381b047e654602a43552dcc8965cd2, type: 3}
   m_Name: Distance To Target
   m_EditorClassIdentifier: 
+  _priority: 0
+  _shouldCacheScore: 0
+  _requiresTarget: 1
+  _requiredTargetTags: []
   _curve:
     serializedVersion: 2
     m_Curve:
@@ -36,8 +40,5 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _priority: 0
-  _requiresTarget: 1
-  _requiredTargetTags:
-  - {fileID: 11400000, guid: 7e162cb81b871604bbe96c11cee73086, type: 2}
-  _maxDistance: 10
+  _minDistance: 0
+  _maxDistance: 15

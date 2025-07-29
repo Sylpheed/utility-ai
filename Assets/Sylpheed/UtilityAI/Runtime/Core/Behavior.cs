@@ -16,11 +16,17 @@ namespace Sylpheed.UtilityAI
         [SerializeField] private Consideration[] _considerations;
         [SerializeField] private float _weight = 1;
         
+        [Header("Target")] 
+        [Tooltip("When set, decisions will be evaluated per target based on this behavior.")]
+        [SerializeField] private bool _requiresTarget;
+        [Tooltip("When set, only evaluate targets with the specified tags.")]
+        [SerializeField] private Tag[] _requiredTargetTags = Array.Empty<Tag>();
+        
         public IAction Action => _action;
         public IReadOnlyList<Consideration> Considerations { get; private set; }
         public float Weight => _weight;
-        public bool RequiresTarget { get; private set; }
-        public IReadOnlyCollection<Tag> RequiredTargetTags { get; private set; }
+        public bool RequiresTarget => _requiresTarget;
+        public IReadOnlyCollection<Tag> RequiredTargetTags => _requiredTargetTags;
 
         private void OnEnable()
         {
@@ -37,8 +43,6 @@ namespace Sylpheed.UtilityAI
 
         private void RebuildCache()
         {
-            RequiresTarget = _considerations.Any(c => c.RequiresTarget);
-            RequiredTargetTags = _considerations.SelectMany(c => c.RequiredTargetTags).Distinct().ToList();
             Considerations = _considerations.OrderByDescending(c => c.Priority).ToArray();
         }
     }

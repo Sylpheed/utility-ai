@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5976fd6436924690a91905a1243b0fd6, type: 3}
   m_Name: Random 1
   m_EditorClassIdentifier: 
+  _priority: 0
+  _shouldCacheScore: 1
+  _requiresTarget: 0
+  _requiredTargetTags: []
   _curve:
     serializedVersion: 2
     m_Curve:
@@ -36,6 +40,5 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _priority: 0
   _min: 10
   _max: 150
