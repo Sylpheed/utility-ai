@@ -38,14 +38,8 @@ namespace Sylpheed.UtilityAI
                 var projectedMaxScore = Mathf.Pow(finalScore, 1f / (i + 1)) * Behavior.Weight;
                 if (projectedMaxScore < scoreThreshold) break;
                 
-                // Skip evaluation if score is already cached. Else, evaluate
-                var hash = BuildConsiderationHash(consideration);
-                if (!scoreCache.TryGetValue(hash, out var score))
-                {
-                    score = consideration.Evaluate(this);
-                    scoreCache[hash] = score;
-                }
-                
+                // Evaluate consideration score
+                var score = EvaluateConsideration(consideration, scoreCache);
                 finalScore *= score;
             }
             
@@ -57,6 +51,21 @@ namespace Sylpheed.UtilityAI
             
             Score = finalScore;
             return finalScore;
+        }
+
+        private float EvaluateConsideration(Consideration consideration, IDictionary<int, float> scoreCache)
+        {
+            // Get cached score
+            var hash = BuildConsiderationHash(consideration);
+            var cached = scoreCache.TryGetValue(hash, out var score);
+
+            // Skip evaluation if score is already cached.
+            if (consideration.ShouldCacheScore && cached) return score;
+            
+            // No caching or not yet cached. Evaluate.
+            score = consideration.Evaluate(this);
+            scoreCache[hash] = score;
+            return score;
         }
 
         private int BuildConsiderationHash(Consideration consideration)

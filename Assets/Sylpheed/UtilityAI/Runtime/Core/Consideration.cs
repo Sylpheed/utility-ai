@@ -6,8 +6,11 @@ namespace Sylpheed.UtilityAI
 {
     public abstract class Consideration : ScriptableObject
     {
+        [Header("Performance")]
         [Tooltip("Consideration with higher priority are evaluated first. Higher value means higher priority.")]
         [SerializeField] private int _priority;
+        [Tooltip("Skips evaluation if this consideration was already evaluated in the same frame. Disable this if score should vary every evaluation within the same frame.")]
+        [SerializeField] private bool _shouldCacheScore = true;
         
         [Header("Target Filter")] 
         [Tooltip("When set, decisions will be evaluated per target based on this behavior.")]
@@ -16,6 +19,7 @@ namespace Sylpheed.UtilityAI
         [SerializeField] private Tag[] _requiredTargetTags = Array.Empty<Tag>();
 
         public int Priority => _priority;
+        public virtual bool ShouldCacheScore => _shouldCacheScore;
         public bool RequiresTarget => _requiresTarget;
         public IReadOnlyCollection<Tag> RequiredTargetTags => _requiredTargetTags;
         

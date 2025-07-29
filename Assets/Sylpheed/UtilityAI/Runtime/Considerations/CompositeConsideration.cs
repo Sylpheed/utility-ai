@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 
 namespace Sylpheed.UtilityAI.Considerations
 {
@@ -7,7 +8,10 @@ namespace Sylpheed.UtilityAI.Considerations
     {
         [Header("Composite")]
         [SerializeField] private Consideration[] _considerations;
-        
+
+        public override bool ShouldCacheScore 
+            => base.ShouldCacheScore && _considerations.All(consideration => consideration.ShouldCacheScore);
+
         protected override float OnEvaluate(Decision decision)
         {
             var score = 1f;
