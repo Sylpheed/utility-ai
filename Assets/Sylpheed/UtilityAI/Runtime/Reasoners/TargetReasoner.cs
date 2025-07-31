@@ -21,9 +21,8 @@ namespace Sylpheed.UtilityAI.Reasoners
             return targets
                 .Where(target => target.HasTags(behavior.RequiredTargetTags))
                 .Select(target =>
-                    new Decision.Builder(agent, behavior)
+                    Decision.Create(agent, behavior)
                         .WithTarget(target)
-                        .Build()
                 )
                 .ToList();
         }

@@ -8,7 +8,7 @@ namespace Sylpheed.UtilityAI.Reasoners
         public override IReadOnlyCollection<Decision> BuildDecisions(UtilityAgent agent, Behavior behavior, IReadOnlyList<UtilityTarget> targets)
         {
             // Create decision without a target
-            var decision = new Decision.Builder(agent, behavior).Build();
+            var decision = Decision.Create(agent, behavior);
             return new[] { decision };
         }
     }

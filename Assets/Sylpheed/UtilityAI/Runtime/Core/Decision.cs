@@ -16,6 +16,32 @@ namespace Sylpheed.UtilityAI
         private object _data;
         public T Data<T>() where T : class => _data as T;
         public bool TryGetData<T>(out T data) where T : class => (data = _data as T) != null;
+        
+        #region Builder
+        public static Decision Create(UtilityAgent agent, Behavior behavior)
+        {
+            var decision = new Decision()
+            {
+                Agent = agent,
+                Behavior = behavior,
+            };
+   
+            return decision;
+        }
+
+        public Decision WithTarget(UtilityTarget target)
+        {
+            Target = target;
+            return this;
+        }
+            
+        public Decision WithData<T>(T data) 
+            where T : class
+        {
+            _data =  data;
+            return this;
+        }
+        #endregion
 
         /// <summary>
         /// Evaluates all considerations for this behavior against a specific target (if applicable)
@@ -77,34 +103,22 @@ namespace Sylpheed.UtilityAI
             hash = hash * 23 + (consideration?.GetHashCode() ?? 0);
             return hash;
         }
-        
-        public class Builder
+
+        /// <summary>
+        /// Check if decision will yield to the same action, including data.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public static bool IsSimilar(Decision a, Decision b)
         {
-            private readonly Decision _decision;
-
-            public Builder(UtilityAgent agent, Behavior behavior)
-            {
-                _decision = new Decision
-                {
-                    Agent = agent,
-                    Behavior = behavior
-                };
-            }
-
-            public Decision Build() => _decision;
-
-            public Builder WithTarget(UtilityTarget target)
-            {
-                _decision.Target = target;
-                return this;
-            }
+            if (a == null || b == null) return false;
+            if (a.Behavior != b.Behavior) return false;
+            if (a.Agent != b.Agent) return false;
+            if (a.Target != b.Target) return false;
+            if (a._data != b._data) return false;
             
-            public Builder WithData<T>(T data) 
-                where T : class
-            {
-                _decision._data =  data;
-                return this;
-            }
+            return true;
         }
     }
 }

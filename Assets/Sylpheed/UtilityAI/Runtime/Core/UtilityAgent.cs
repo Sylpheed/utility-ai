@@ -22,7 +22,7 @@ namespace Sylpheed.UtilityAI
         private List<Behavior> _behaviors = new();
         private readonly RaycastHit[] _searchHits = new RaycastHit[30];
         private float _decisionTimer;
-        private Dictionary<int, float> _scoreCache = new(); // Key is hash of agent, consideration, data, and target
+        private readonly Dictionary<int, float> _scoreCache = new(); // Key is hash of agent, consideration, data, and target
 
         private void Awake()
         {
@@ -37,6 +37,7 @@ namespace Sylpheed.UtilityAI
                 var decisions = BuildDecisions();
                 var decision = Decide(decisions);
                 EnactDecision(decision);
+
                 _decisionTimer = 0;
             }
             else
@@ -49,15 +50,14 @@ namespace Sylpheed.UtilityAI
         {
             if (decision == null)
             {
-                Debug.Log("No decision evaluated.");
+                Log("No decision evaluated.");
                 return;
             }
             
-            // Invoke a new action if decision changed based on behavior and target
-            if (decision.Behavior != CurrentDecision?.Behavior && 
-                decision.Target != CurrentDecision?.Target)
+            // Invoke a new action if decision yields to a different action
+            if (!Decision.IsSimilar(CurrentDecision, decision))
             {
-                Debug.Log($"[Agent: {gameObject.name}] [{decision.Behavior.name}] decision enacted. Score: {decision.Score:P2}");
+                Log($"[{decision.Behavior.name}] enacted. Score: {decision.Score:P2}");
                 decision.Behavior.Action?.Execute(this, decision.Target);
             }
             
@@ -148,6 +148,12 @@ namespace Sylpheed.UtilityAI
 
             Targets = targets;
             return targets;
+        }
+
+        private void Log(string message)
+        {
+            if (!_logToConsole) return;
+            Debug.Log($"[Agent: {gameObject.name}] {message}]");
         }
         
         private void OnDrawGizmos()
