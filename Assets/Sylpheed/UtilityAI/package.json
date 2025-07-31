@@ -1,0 +1,24 @@
+{
+  "name": "com.sylpheed.utility-ai",
+  "displayName": "Utility AI",
+  "author": {
+    "name": "Deng Rodil",
+    "url": "https://github.com/DengRodil/UtilityAI"
+  },
+  "version": "0.1.0",
+  "unity": "6000.1",
+  "description": "Data-driven Utility AI",
+  "keywords": [
+    "Utility AI",
+    "UtilityAI"
+  ],
+  "dependencies": {},
+  "samples": [
+    {
+      "displayName": "Samples",
+      "description": "",
+      "path": "Samples"
+    }
+  ],
+  "_fingerprint": "f17321fc147800617a1ebe6e2ee31e895eb34d89"
+}
