@@ -17,6 +17,8 @@ namespace Sylpheed.UtilityAI
         public T Data<T>() where T : class => _data as T;
         public bool TryGetData<T>(out T data) where T : class => (data = _data as T) != null;
         
+        public Action Action { get; private set; }
+        
         #region Builder
         public static Decision Create(UtilityAgent agent, Behavior behavior)
         {
@@ -102,6 +104,19 @@ namespace Sylpheed.UtilityAI
             hash = hash * 23 + (_data?.GetHashCode() ?? 0);
             hash = hash * 23 + (consideration?.GetHashCode() ?? 0);
             return hash;
+        }
+
+        public Action Enact(System.Action onComplete = null)
+        {
+            if (Behavior.Action == null) return null;
+            
+            // Clone action via json serialization
+            var json = JsonUtility.ToJson(Behavior.Action);
+            if (JsonUtility.FromJson(json, Behavior.Action.GetType()) is not Action action) throw new System.Exception("Unable to create action");
+            
+            action.Execute(this, onComplete);
+            
+            return action;
         }
 
         /// <summary>

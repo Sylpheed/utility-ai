@@ -32,18 +32,33 @@ namespace Sylpheed.UtilityAI
 
         private void Update()
         {
+            UpdateDecisions();
+            CurrentDecision?.Action?.Update(Time.deltaTime);
+        }
+
+        private void FixedUpdate()
+        {
+            CurrentDecision?.Action?.FixedUpdate(Time.fixedDeltaTime);
+        }
+
+        private void UpdateDecisions()
+        {
             if (_decisionTimer >= _decisionInterval)
             {
-                var decisions = BuildDecisions();
-                var decision = Decide(decisions);
-                EnactDecision(decision);
-
+                Think();
                 _decisionTimer = 0;
             }
             else
             {
                 _decisionTimer += Time.deltaTime;
             }
+        }
+
+        private void Think()
+        {
+            var decisions = BuildDecisions();
+            var decision = Decide(decisions);
+            EnactDecision(decision);
         }
 
         private void EnactDecision(Decision decision)
@@ -54,14 +69,20 @@ namespace Sylpheed.UtilityAI
                 return;
             }
             
-            // Invoke a new action if decision yields to a different action
-            if (!Decision.IsSimilar(CurrentDecision, decision))
-            {
-                Log($"[{decision.Behavior.name}] enacted. Score: {decision.Score:P2}");
-                decision.Behavior.Action?.Execute(this, decision.Target);
-            }
+            // Keep current decision if it doesn't yield to a new action
+            if (Decision.IsSimilar(CurrentDecision, decision)) return;
             
+            // Stop previous action
+            CurrentDecision?.Action?.Stop();
+            
+            // Enact decision
+            Log($"[{decision.Behavior.name}] enacted. Score: {decision.Score:P2}");
             CurrentDecision = decision;
+            decision.Enact(onComplete: () =>
+            {
+                CurrentDecision = null;
+                Think();
+            });
         }
 
         #region Add/Remove Behaviors

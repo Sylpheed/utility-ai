@@ -9,7 +9,7 @@ namespace Sylpheed.UtilityAI
     public class Behavior : ScriptableObject
     {
         [Header("Action")]
-        [SerializeReference, SubclassSelector] private IAction _action;
+        [SerializeReference, SubclassSelector] private Action _action;
         
         [Header("Decision")]
         [SerializeReference, SubclassSelector] private Reasoner _reasoner;
@@ -22,7 +22,7 @@ namespace Sylpheed.UtilityAI
         [Tooltip("When set, only evaluate targets with the specified tags.")]
         [SerializeField] private Tag[] _requiredTargetTags = Array.Empty<Tag>();
         
-        public IAction Action => _action;
+        public Action Action => _action;
         public IReadOnlyList<Consideration> Considerations { get; private set; }
         public float Weight => _weight;
         public bool RequiresTarget => _requiresTarget;
