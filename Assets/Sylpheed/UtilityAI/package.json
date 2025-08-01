@@ -13,9 +13,7 @@
     "UtilityAI"
   ],
   "license": "UNLICENSED",
-  "dependencies": {
-    "com.mackysoft.serializereference-extensions": "1.6.1"
-  },
+  "dependencies": { },
   "samples": [
     {
       "displayName": "Samples",
