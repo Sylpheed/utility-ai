@@ -14,7 +14,7 @@
   ],
   "license": "UNLICENSED",
   "dependencies": {
-    "com.mackysoft.serializereference-extensions": "https://github.com/mackysoft/Unity-SerializeReferenceExtensions.git?path=Assets/MackySoft/MackySoft.SerializeReferenceExtensions#1.6.1"
+    "com.mackysoft.serializereference-extensions": "1.6.1"
   },
   "samples": [
     {
