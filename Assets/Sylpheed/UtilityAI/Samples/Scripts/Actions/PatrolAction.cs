@@ -19,19 +19,17 @@ namespace Sylpheed.UtilityAI.Samples
             var targetPos = GetRandomDestination();
             if (!targetPos.HasValue)
             {
-                Complete();
+                Exit();
                 return;
             }
 
             _navAgent.isStopped = false;
             _navAgent.SetDestination(targetPos.Value);
         }
-
-        protected override void OnUpdate(float deltaTime)
+        
+        protected override bool ShouldExit()
         {
-            // Debug.Log($"Remaining distance: {_navAgent.remainingDistance}");
-            if (_navAgent.remainingDistance <= _navAgent.stoppingDistance + 0.01f)
-                Complete();
+            return _navAgent.remainingDistance <= _navAgent.stoppingDistance + 0.01f;
         }
 
         protected override void OnExit()

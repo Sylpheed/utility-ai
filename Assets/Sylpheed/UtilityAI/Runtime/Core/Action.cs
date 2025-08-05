@@ -11,29 +11,50 @@ namespace Sylpheed.UtilityAI
         public bool TryGetData<T>(out T data) where T : class => (data = Decision.Data<T>()) != null;
 
         #region Overridables
+        /// <summary>
+        /// Called when this action has been executed.
+        /// </summary>
         protected virtual void OnEnter() { }
+        /// <summary>
+        /// Called every frame while the action is being executed.
+        /// </summary>
+        /// <param name="deltaTime"></param>
         protected virtual void OnUpdate(float deltaTime) { }
+        /// <summary>
+        /// Called every fixed update while the action is being executed.
+        /// </summary>
+        /// <param name="deltaTime"></param>
         protected virtual void OnFixedUpdate(float deltaTime) { }
+        /// <summary>
+        /// Called when the action has been exited or interrupted. Use this for cleanup.
+        /// </summary>
         protected virtual void OnExit() { }
+        /// <summary>
+        /// Use this if you want to have a separate function to check if the action should still execute.
+        /// </summary>
+        /// <returns></returns>
+        protected virtual bool ShouldExit() { return false; }
         #endregion
 
-        private System.Action _onComplete;
+        private System.Action _onExit;
         
-        public void Execute(Decision decision, System.Action onComplete = null)
+        public void Execute(Decision decision, System.Action onExit = null)
         {
             Decision = decision;
-            _onComplete = onComplete;
+            _onExit = onExit;
             OnEnter();
         }
 
-        public void Stop()
+        public void Interrupt()
         {
             OnExit();
         }
         
         public void Update(float deltaTime)
         {
-            OnUpdate(deltaTime);
+            var shouldExit = ShouldExit();
+            if (!shouldExit) OnUpdate(deltaTime);
+            else Exit();
         }
         
         public void FixedUpdate(float deltaTime)
@@ -42,12 +63,12 @@ namespace Sylpheed.UtilityAI
         }
         
         /// <summary>
-        /// Call this whenever the action is complete. This will force the agent to come up with a new decision.
+        /// Call this whenever the action is concluded either successfully or prematurely. This will force the agent to come up with a new decision.
         /// </summary>
-        protected void Complete()
+        protected void Exit()
         {
             OnExit();
-            _onComplete?.Invoke();
+            _onExit?.Invoke();
         }
     }
 }

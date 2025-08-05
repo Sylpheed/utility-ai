@@ -106,7 +106,7 @@ namespace Sylpheed.UtilityAI
             return hash;
         }
 
-        public Action Enact(System.Action onComplete = null)
+        public Action Enact(System.Action onExit = null)
         {
             if (Behavior.Action == null) return null;
             
@@ -115,7 +115,7 @@ namespace Sylpheed.UtilityAI
             if (JsonUtility.FromJson(json, Behavior.Action.GetType()) is not Action action) throw new System.Exception("Unable to create action");
             
             Action = action;
-            action.Execute(this, onComplete);
+            action.Execute(this, onExit);
             
             return action;
         }

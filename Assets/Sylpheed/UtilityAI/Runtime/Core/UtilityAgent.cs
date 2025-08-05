@@ -72,14 +72,15 @@ namespace Sylpheed.UtilityAI
             // Keep current decision if it doesn't yield to a new action
             if (Decision.IsSimilar(CurrentDecision, decision)) return;
             
-            // Stop previous action
-            CurrentDecision?.Action?.Stop();
+            // Interrupt previous action if it's still running
+            CurrentDecision?.Action?.Interrupt();
             
             // Enact decision
             Log($"[{decision.Behavior.name}] enacted. Score: {decision.Score:P2}");
             CurrentDecision = decision;
-            decision.Enact(onComplete: () =>
+            decision.Enact(onExit: () =>
             {
+                // Come up with a new decision once current action has concluded
                 CurrentDecision = null;
                 Think();
             });
