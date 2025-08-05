@@ -6,7 +6,8 @@ namespace Sylpheed.UtilityAI.Samples
     [System.Serializable]
     public class PatrolAction : Action
     {
-        [SerializeField] private float _radius = 5f;
+        [SerializeField] private float _minRadius = 10f;
+        [SerializeField] private float _maxRadius = 20f;
 
         private NavMeshAgent _navAgent;
         
@@ -21,13 +22,15 @@ namespace Sylpheed.UtilityAI.Samples
                 Complete();
                 return;
             }
-            
+
+            _navAgent.isStopped = false;
             _navAgent.SetDestination(targetPos.Value);
         }
 
         protected override void OnUpdate(float deltaTime)
         {
-            if (_navAgent.pathStatus == NavMeshPathStatus.PathComplete)
+            // Debug.Log($"Remaining distance: {_navAgent.remainingDistance}");
+            if (_navAgent.remainingDistance <= _navAgent.stoppingDistance + 0.01f)
                 Complete();
         }
 
@@ -42,9 +45,10 @@ namespace Sylpheed.UtilityAI.Samples
 
             for (var i = 0; i < maxRetries; i++)
             {
-                Vector3 dir = Random.insideUnitCircle * _radius;
-                var pos = Agent.transform.position + dir;
-                if (!NavMesh.SamplePosition(pos, out var hit, _radius, 1))
+                var radius = Random.Range(_minRadius, _maxRadius);
+                var dir = Random.insideUnitCircle * radius;
+                var pos = Agent.transform.position + new Vector3(dir.x, 0, dir.y);
+                if (!NavMesh.SamplePosition(pos, out var hit, radius, 1))
                     continue;
                 
                 return hit.position;

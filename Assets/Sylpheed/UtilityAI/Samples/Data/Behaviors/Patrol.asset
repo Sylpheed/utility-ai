@@ -27,7 +27,8 @@ MonoBehaviour:
     - rid: 5832752076500238570
       type: {class: PatrolAction, ns: Sylpheed.UtilityAI.Samples, asm: Sylpheed.UtilityAI}
       data:
-        _radius: 5
+        _minRadius: 20
+        _maxRadius: 50
     - rid: 5832752076500238571
       type: {class: SelfReasoner, ns: Sylpheed.UtilityAI.Reasoners, asm: Sylpheed.UtilityAI}
       data: 
