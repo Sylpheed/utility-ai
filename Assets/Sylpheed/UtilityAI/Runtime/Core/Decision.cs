@@ -114,6 +114,7 @@ namespace Sylpheed.UtilityAI
             var json = JsonUtility.ToJson(Behavior.Action);
             if (JsonUtility.FromJson(json, Behavior.Action.GetType()) is not Action action) throw new System.Exception("Unable to create action");
             
+            Action = action;
             action.Execute(this, onComplete);
             
             return action;
