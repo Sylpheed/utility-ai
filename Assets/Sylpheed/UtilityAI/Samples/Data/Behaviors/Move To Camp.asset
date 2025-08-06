@@ -10,27 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b7042c9fd6f4eddb0f2da94a2f6bab5, type: 3}
-  m_Name: Behavior - Targeted
+  m_Name: Move To Camp
   m_EditorClassIdentifier: 
   _action:
-    rid: 5879897300098613433
+    rid: 5832752098883403837
   _reasoner:
-    rid: 5879897479385448515
+    rid: 5832752098883403836
   _considerations:
-  - {fileID: 11400000, guid: 3e1b6683dac1a244a81ba9240a3aa9a2, type: 2}
+  - {fileID: 11400000, guid: 0cba9033377c30e4baa9bc9cd1e5d4cb, type: 2}
   - {fileID: 11400000, guid: afff57aebe904494a811c3ed2ae77fa1, type: 2}
-  - {fileID: 11400000, guid: 3e1b6683dac1a244a81ba9240a3aa9a2, type: 2}
   _weight: 1
   _requiresTarget: 1
   _requiredTargetTags:
-  - {fileID: 11400000, guid: 7e162cb81b871604bbe96c11cee73086, type: 2}
+  - {fileID: 11400000, guid: 947272906bba09149bc921ddfa16b4ac, type: 2}
   references:
     version: 2
     RefIds:
-    - rid: 5879897300098613433
-      type: {class: SampleAction, ns: Sylpheed.UtilityAI.Samples, asm: Sylpheed.UtilityAI}
-      data:
-        _damage: 1
-    - rid: 5879897479385448515
+    - rid: 5832752098883403836
       type: {class: TargetReasoner, ns: Sylpheed.UtilityAI.Reasoners, asm: Sylpheed.UtilityAI}
+      data: 
+    - rid: 5832752098883403837
+      type: {class: MoveToTargetAction, ns: Sylpheed.UtilityAI.Sample, asm: Sylpheed.UtilityAI}
       data: 

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
 
-namespace Sylpheed.UtilityAI.Samples
+namespace Sylpheed.UtilityAI.Sample
 {
     [System.Serializable]
     public class PatrolAction : Action

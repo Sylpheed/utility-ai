@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
-namespace Sylpheed.UtilityAI.Samples
+namespace Sylpheed.UtilityAI.Sample
 {
     public class Health : MonoBehaviour
     {
@@ -17,6 +18,11 @@ namespace Sylpheed.UtilityAI.Samples
         }
 
         public float Normalized => Current / Max;
+
+        private void Start()
+        {
+            _current = Max;
+        }
 
         public void TakeDamage(float amount)
         {

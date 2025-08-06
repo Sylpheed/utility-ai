@@ -1,7 +1,7 @@
 ﻿using Sylpheed.UtilityAI.Considerations;
 using UnityEngine;
 
-namespace Sylpheed.UtilityAI.Samples
+namespace Sylpheed.UtilityAI.Sample
 {
     [CreateAssetMenu(fileName = "Random", menuName = "Utility AI/Consideration/Samples/Random")]
     public class RandomConsideration : CurveConsideration

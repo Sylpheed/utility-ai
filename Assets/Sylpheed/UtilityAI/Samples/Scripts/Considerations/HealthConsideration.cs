@@ -1,7 +1,7 @@
 ﻿using Sylpheed.UtilityAI.Considerations;
 using UnityEngine;
 
-namespace Sylpheed.UtilityAI.Samples
+namespace Sylpheed.UtilityAI.Sample
 {
     [CreateAssetMenu(fileName = "Health", menuName = "Utility AI/Consideration/Samples/Health")]
     public class HealthConsideration : CurveConsideration

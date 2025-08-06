@@ -472,6 +472,7 @@ GameObject:
   - component: {fileID: 240659949}
   - component: {fileID: 240659948}
   - component: {fileID: 240659947}
+  - component: {fileID: 240659950}
   m_Layer: 0
   m_Name: Camp
   m_TagString: Untagged
@@ -571,6 +572,20 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 240659945}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &240659950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 240659945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79c5b51bb6504956992b868c87e0093b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tags:
+  - {fileID: 11400000, guid: 947272906bba09149bc921ddfa16b4ac, type: 2}
 --- !u!1 &244372489
 GameObject:
   m_ObjectHideFlags: 0
@@ -2152,6 +2167,7 @@ GameObject:
   - component: {fileID: 1295679422}
   - component: {fileID: 1295679424}
   - component: {fileID: 1295679423}
+  - component: {fileID: 1295679425}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -2253,6 +2269,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _max: 100
+--- !u!114 &1295679425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1295679418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d991b7ee474e49c79c9e92c7d16f6f9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _depletionRate: 3
+  _depleteOnMoveOnly: 1
 --- !u!1 &1332651664
 GameObject:
   m_ObjectHideFlags: 0

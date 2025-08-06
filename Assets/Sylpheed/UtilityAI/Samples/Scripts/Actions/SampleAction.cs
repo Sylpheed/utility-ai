@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Sylpheed.UtilityAI.Samples
+namespace Sylpheed.UtilityAI.Sample
 {
     [System.Serializable]
     public class SampleAction : Action

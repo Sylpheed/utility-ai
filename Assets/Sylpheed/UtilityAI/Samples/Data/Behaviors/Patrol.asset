@@ -13,22 +13,22 @@ MonoBehaviour:
   m_Name: Patrol
   m_EditorClassIdentifier: 
   _action:
-    rid: 5832752076500238570
+    rid: 5832752098883403838
   _reasoner:
     rid: 5832752076500238571
   _considerations:
-  - {fileID: 11400000, guid: 0cba9033377c30e4baa9bc9cd1e5d4cb, type: 2}
+  - {fileID: 11400000, guid: 8a2cb7dc5c629004d85a1190620b64ae, type: 2}
   _weight: 1
   _requiresTarget: 0
   _requiredTargetTags: []
   references:
     version: 2
     RefIds:
-    - rid: 5832752076500238570
-      type: {class: PatrolAction, ns: Sylpheed.UtilityAI.Samples, asm: Sylpheed.UtilityAI}
-      data:
-        _minRadius: 20
-        _maxRadius: 50
     - rid: 5832752076500238571
       type: {class: SelfReasoner, ns: Sylpheed.UtilityAI.Reasoners, asm: Sylpheed.UtilityAI}
       data: 
+    - rid: 5832752098883403838
+      type: {class: PatrolAction, ns: Sylpheed.UtilityAI.Sample, asm: Sylpheed.UtilityAI}
+      data:
+        _minRadius: 30
+        _maxRadius: 50
