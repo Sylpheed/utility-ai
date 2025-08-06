@@ -6,18 +6,16 @@ namespace Sylpheed.UtilityAI.Sample
     public class MoveToTargetAction : Action
     {
         private NavMeshAgent _navAgent;
-        
-        protected override void OnEnter()
+
+        protected override bool OnEnter()
         {
             _navAgent = Agent.GetComponent<NavMeshAgent>();
-            if (!_navAgent)
-            {
-                Exit();
-                return;
-            }
+            if (!_navAgent) return false;
             
             _navAgent.isStopped = false;
             _navAgent.SetDestination(Decision.Target.transform.position);
+            
+            return true;
         }
         
         protected override bool ShouldExit()

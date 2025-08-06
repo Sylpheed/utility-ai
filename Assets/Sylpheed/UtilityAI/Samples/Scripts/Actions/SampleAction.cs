@@ -7,9 +7,11 @@ namespace Sylpheed.UtilityAI.Sample
     {
         [SerializeField] private float _damage = 1f;
 
-        protected override void OnEnter()
+        protected override bool OnEnter()
         {
             Debug.Log($"[Action] {nameof(SampleAction)} executed. Agent: {Agent.gameObject.name}. Target: {Target?.gameObject.name ?? "None" }");
+            
+            return true;
         }
     }
 }

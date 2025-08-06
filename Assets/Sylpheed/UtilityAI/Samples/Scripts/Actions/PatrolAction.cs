@@ -10,21 +10,20 @@ namespace Sylpheed.UtilityAI.Sample
         [SerializeField] private float _maxRadius = 20f;
 
         private NavMeshAgent _navAgent;
-        
-        protected override void OnEnter()
+
+        protected override bool OnEnter()
         {
             _navAgent = Agent.GetComponent<NavMeshAgent>();
+            if (!_navAgent) return false;
             
             // Get a random patrol point
             var targetPos = GetRandomDestination();
-            if (!targetPos.HasValue)
-            {
-                Exit();
-                return;
-            }
+            if (!targetPos.HasValue) return false;
 
             _navAgent.isStopped = false;
             _navAgent.SetDestination(targetPos.Value);
+            
+            return true;
         }
         
         protected override bool ShouldExit()

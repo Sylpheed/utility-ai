@@ -8,21 +8,15 @@ namespace Sylpheed.UtilityAI.Sample
         private Camp _camp;
         private Health _health;
 
-        protected override void OnEnter()
+        protected override bool OnEnter()
         {
             _health = Agent.GetComponent<Health>();
-            if (!_health)
-            {
-                Exit();
-                return;
-            } 
+            if (!_health) return false;
             
             _camp = Target.GetComponent<Camp>();
-            if (!_camp)
-            {
-                Exit();
-                return;
-            } 
+            if (!_camp) return false;
+            
+            return true;
         }
 
         protected override void OnUpdate(float deltaTime)

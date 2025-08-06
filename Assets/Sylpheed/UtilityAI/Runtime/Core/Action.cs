@@ -11,10 +11,11 @@ namespace Sylpheed.UtilityAI
         public bool TryGetData<T>(out T data) where T : class => (data = Decision.Data<T>()) != null;
 
         #region Overridables
+
         /// <summary>
-        /// Called when this action has been executed.
+        /// Called when this action has been executed. Return true to validate the action and continue execution.
         /// </summary>
-        protected virtual void OnEnter() { }
+        protected virtual bool OnEnter() => true;
         /// <summary>
         /// Called every frame while the action is being executed.
         /// </summary>
@@ -46,7 +47,12 @@ namespace Sylpheed.UtilityAI
             
             Decision = decision;
             _onExit = onExit;
-            OnEnter();
+            
+            // Exit immediately if OnEnter failed
+            if (!OnEnter())
+            {
+                OnExit();
+            }
         }
 
         public void Interrupt()
