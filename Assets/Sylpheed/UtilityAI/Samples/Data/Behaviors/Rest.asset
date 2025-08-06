@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b7042c9fd6f4eddb0f2da94a2f6bab5, type: 3}
-  m_Name: Move To Camp
+  m_Name: Rest
   m_EditorClassIdentifier: 
   _action:
-    rid: 5832752098883403837
+    rid: 5832752101574311995
   _reasoner:
     rid: 5832752098883403836
   _considerations:
   - {fileID: 11400000, guid: 0cba9033377c30e4baa9bc9cd1e5d4cb, type: 2}
-  - {fileID: 11400000, guid: a84b6268b9287b04ca865416b4579fce, type: 2}
+  - {fileID: 11400000, guid: 0bb7211d582d01a45805842baff8a877, type: 2}
   _weight: 1
   _requiresTarget: 1
   _requiredTargetTags:
@@ -29,6 +29,6 @@ MonoBehaviour:
     - rid: 5832752098883403836
       type: {class: TargetReasoner, ns: Sylpheed.UtilityAI.Reasoners, asm: Sylpheed.UtilityAI}
       data: 
-    - rid: 5832752098883403837
-      type: {class: MoveToTargetAction, ns: Sylpheed.UtilityAI.Sample, asm: Sylpheed.UtilityAI}
+    - rid: 5832752101574311995
+      type: {class: RestAction, ns: Sylpheed.UtilityAI.Sample, asm: Sylpheed.UtilityAI}
       data: 

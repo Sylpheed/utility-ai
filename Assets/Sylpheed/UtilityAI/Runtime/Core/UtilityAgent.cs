@@ -81,6 +81,7 @@ namespace Sylpheed.UtilityAI
             CurrentDecision = decision;
             _currentAction = decision.Enact(onExit: () =>
             {
+                // TODO: May cause infinite loop when decision always exits
                 // Come up with a new decision once current action has concluded
                 CurrentDecision = null;
                 Think();
