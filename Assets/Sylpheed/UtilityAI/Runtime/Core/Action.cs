@@ -37,9 +37,13 @@ namespace Sylpheed.UtilityAI
         #endregion
 
         private System.Action _onExit;
+        private bool _executed;
         
         public void Execute(Decision decision, System.Action onExit = null)
         {
+            if (_executed) throw new System.Exception("Action is already executed");
+            _executed = true;
+            
             Decision = decision;
             _onExit = onExit;
             OnEnter();

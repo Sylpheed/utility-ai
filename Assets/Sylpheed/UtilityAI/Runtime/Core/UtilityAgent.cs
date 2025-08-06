@@ -23,6 +23,7 @@ namespace Sylpheed.UtilityAI
         private readonly RaycastHit[] _searchHits = new RaycastHit[30];
         private float _decisionTimer;
         private readonly Dictionary<int, float> _scoreCache = new(); // Key is hash of agent, consideration, data, and target
+        private Action _currentAction;
 
         private void Awake()
         {
@@ -33,12 +34,12 @@ namespace Sylpheed.UtilityAI
         private void Update()
         {
             UpdateDecisions();
-            CurrentDecision?.Action?.Update(Time.deltaTime);
+            _currentAction?.Update(Time.deltaTime);
         }
 
         private void FixedUpdate()
         {
-            CurrentDecision?.Action?.FixedUpdate(Time.fixedDeltaTime);
+            _currentAction?.FixedUpdate(Time.fixedDeltaTime);
         }
 
         private void UpdateDecisions()
@@ -65,7 +66,7 @@ namespace Sylpheed.UtilityAI
         {
             if (decision == null)
             {
-                Log("No decision evaluated.");
+                Log("wasn't able to come up with a decision.");
                 return;
             }
             
@@ -73,12 +74,12 @@ namespace Sylpheed.UtilityAI
             if (Decision.IsSimilar(CurrentDecision, decision)) return;
             
             // Interrupt previous action if it's still running
-            CurrentDecision?.Action?.Interrupt();
+            _currentAction?.Interrupt();
             
             // Enact decision
-            Log($"[{decision.Behavior.name}] enacted. Score: {decision.Score:P2}");
+            Log($"enacted [{decision.Behavior.name}]. Score: {decision.Score:P2}");
             CurrentDecision = decision;
-            decision.Enact(onExit: () =>
+            _currentAction = decision.Enact(onExit: () =>
             {
                 // Come up with a new decision once current action has concluded
                 CurrentDecision = null;
@@ -175,7 +176,7 @@ namespace Sylpheed.UtilityAI
         private void Log(string message)
         {
             if (!_logToConsole) return;
-            Debug.Log($"[Agent: {gameObject.name}] {message}]");
+            Debug.Log($"[Agent: {gameObject.name}] {message}");
         }
         
         private void OnDrawGizmos()
