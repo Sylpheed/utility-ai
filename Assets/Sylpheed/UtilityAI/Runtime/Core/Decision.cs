@@ -14,8 +14,8 @@ namespace Sylpheed.UtilityAI
         public float MaxScore => Behavior.Weight;
         
         private object _data;
-        public T Data<T>() where T : class => _data as T;
-        public bool TryGetData<T>(out T data) where T : class => (data = _data as T) != null;
+        public T GetData<T>() => (T)_data;
+        public bool TryGetData<T>(out T data) => (data = (T)_data) != null;
         
         #region Builder
         public static Decision Create(UtilityAgent agent, Behavior behavior)
@@ -112,7 +112,7 @@ namespace Sylpheed.UtilityAI
             var json = JsonUtility.ToJson(Behavior.Action);
             if (JsonUtility.FromJson(json, Behavior.Action.GetType()) is not Action action) throw new System.Exception("Unable to create action");
 
-            action.Execute(this, onExit);
+            action.Execute(Agent, Target, _data, onExit);
             
             return action;
         }
