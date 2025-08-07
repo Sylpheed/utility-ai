@@ -57,4 +57,15 @@ namespace Sylpheed.UtilityAI
             public static readonly float OptIn = 1f;
         }
     }
+
+    public abstract class Consideration<TData> : Consideration
+    {
+        protected abstract float OnEvaluate(Decision decision, TData data);
+        
+        protected sealed override float OnEvaluate(Decision decision)
+        {
+            if (decision.Data is not TData data) throw new System.Exception("Failed to cast decision data.");
+            return OnEvaluate(decision, data);
+        }
+    }
 }

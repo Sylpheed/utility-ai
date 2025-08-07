@@ -9,13 +9,10 @@ namespace Sylpheed.UtilityAI
         
         public UtilityAgent Agent { get; private set; }
         public UtilityTarget Target { get; private set; }
+        public object Data { get; private set; }
         
         public float Score { get; private set; }
         public float MaxScore => Behavior.Weight;
-        
-        private object _data;
-        public T GetData<T>() => (T)_data;
-        public bool TryGetData<T>(out T data) => (data = (T)_data) != null;
         
         #region Builder
         public static Decision Create(UtilityAgent agent, Behavior behavior)
@@ -38,7 +35,7 @@ namespace Sylpheed.UtilityAI
         public Decision WithData<T>(T data) 
             where T : class
         {
-            _data =  data;
+            Data =  data;
             return this;
         }
         #endregion
@@ -99,7 +96,7 @@ namespace Sylpheed.UtilityAI
             var hash = 17;
             hash = hash * 23 + (Agent?.GetHashCode() ?? 0);
             hash = hash * 23 + (Target?.GetHashCode() ?? 0);
-            hash = hash * 23 + (_data?.GetHashCode() ?? 0);
+            hash = hash * 23 + (Data?.GetHashCode() ?? 0);
             hash = hash * 23 + (consideration?.GetHashCode() ?? 0);
             return hash;
         }
@@ -112,7 +109,7 @@ namespace Sylpheed.UtilityAI
             var json = JsonUtility.ToJson(Behavior.Action);
             if (JsonUtility.FromJson(json, Behavior.Action.GetType()) is not Action action) throw new System.Exception("Unable to create action");
 
-            action.Execute(Agent, Target, _data, onExit);
+            action.Execute(Agent, Target, Data, onExit);
             
             return action;
         }
@@ -129,7 +126,7 @@ namespace Sylpheed.UtilityAI
             if (a.Behavior != b.Behavior) return false;
             if (a.Agent != b.Agent) return false;
             if (a.Target != b.Target) return false;
-            if (a._data != b._data) return false;
+            if (a.Data != b.Data) return false;
             
             return true;
         }

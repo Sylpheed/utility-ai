@@ -29,4 +29,15 @@ namespace Sylpheed.UtilityAI.Considerations
         /// <returns></returns>
         protected float EvaluateCurve(float value, float min, float max) => EvaluateCurve(value - min, max - min);
     }
+
+    public abstract class CurveConsideration<TData> : CurveConsideration
+    {
+        protected abstract float OnEvaluate(Decision decision, TData data);
+        
+        protected sealed override float OnEvaluate(Decision decision)
+        {
+            if (decision.Data is not TData data) throw new System.Exception("Failed to cast decision data.");
+            return OnEvaluate(decision, data);
+        }
+    }
 }
