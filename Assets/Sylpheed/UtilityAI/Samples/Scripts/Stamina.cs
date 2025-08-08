@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Sylpheed.UtilityAI.Sample
 {
@@ -14,6 +15,10 @@ namespace Sylpheed.UtilityAI.Sample
             get => _current;
             set => _current = Mathf.Clamp(value, 0, _max);
         }
-        
+
+        private void Start()
+        {
+            _current = _max;
+        }
     }
 }

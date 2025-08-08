@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b49e51514bb7495ab9c2471178781808, type: 3}
-  m_Name: Keep Resting
+  m_Name: Health - Keep Resting
   m_EditorClassIdentifier: 
   _priority: 0
   _shouldCacheScore: 1
@@ -40,5 +40,5 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _min: 0.5
+  _min: 0.2
   _max: 0.8

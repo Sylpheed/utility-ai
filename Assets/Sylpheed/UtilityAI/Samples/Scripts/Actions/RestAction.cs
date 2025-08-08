@@ -7,11 +7,12 @@ namespace Sylpheed.UtilityAI.Sample
     {
         private Camp _camp;
         private Health _health;
+        private Stamina _stamina;
 
         protected override bool OnEnter()
         {
             _health = Agent.GetComponent<Health>();
-            if (!_health) return false;
+            _stamina = Agent.GetComponent<Stamina>();
             
             _camp = Target.GetComponent<Camp>();
             if (!_camp) return false;
@@ -21,7 +22,8 @@ namespace Sylpheed.UtilityAI.Sample
 
         protected override void OnUpdate(float deltaTime)
         {
-            _health.Heal(_camp.HealthRegenRate * Time.deltaTime);
+            if (_health) _health.Heal(_camp.HealthRegenRate * deltaTime);
+            if (_stamina) _stamina.Current += _camp.StaminaRegenRate * deltaTime;
         }
     }
 }

@@ -6,8 +6,10 @@ namespace Sylpheed.UtilityAI.Sample
     public class Camp : MonoBehaviour
     {
         [SerializeField] private float _healthRegenRate = 1f;
+        [SerializeField] private float _staminaRegenRate = 1f;
         
         public float HealthRegenRate => _healthRegenRate;
+        public float StaminaRegenRate => _staminaRegenRate;
 
         private void OnTriggerEnter(Collider other)
         {

@@ -600,7 +600,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75d9522516d44274acd6698f266af646, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _healthRegenRate: 1
+  _healthRegenRate: 2
 --- !u!1 &244372489
 GameObject:
   m_ObjectHideFlags: 0
@@ -2344,7 +2344,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1295679418}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d991b7ee474e49c79c9e92c7d16f6f9f, type: 3}
   m_Name: 

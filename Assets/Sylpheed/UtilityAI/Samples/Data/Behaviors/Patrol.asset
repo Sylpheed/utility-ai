@@ -17,7 +17,7 @@ MonoBehaviour:
   _reasoner:
     rid: 5832752076500238571
   _considerations:
-  - {fileID: 11400000, guid: 8a2cb7dc5c629004d85a1190620b64ae, type: 2}
+  - {fileID: 11400000, guid: e0335610c4f52c348b7f8af2ed5b6b23, type: 2}
   _weight: 1
   _requiresTarget: 0
   _requiredTargetTags: []
@@ -32,3 +32,4 @@ MonoBehaviour:
       data:
         _minRadius: 30
         _maxRadius: 50
+        _staminaCost: 1

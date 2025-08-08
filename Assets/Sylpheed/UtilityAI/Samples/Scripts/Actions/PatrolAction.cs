@@ -8,13 +8,17 @@ namespace Sylpheed.UtilityAI.Sample
     {
         [SerializeField] private float _minRadius = 10f;
         [SerializeField] private float _maxRadius = 20f;
+        [SerializeField] private float _staminaCost = 1f;
 
         private NavMeshAgent _navAgent;
+        private Stamina _stamina;
 
         protected override bool OnEnter()
         {
             _navAgent = Agent.GetComponent<NavMeshAgent>();
             if (!_navAgent) return false;
+            
+            _stamina = Agent.GetComponent<Stamina>();
             
             // Get a random patrol point
             var targetPos = GetRandomDestination();
@@ -25,7 +29,12 @@ namespace Sylpheed.UtilityAI.Sample
             
             return true;
         }
-        
+
+        protected override void OnUpdate(float deltaTime)
+        {
+            if (_stamina) _stamina.Current -= deltaTime;
+        }
+
         protected override bool ShouldExit()
         {
             return _navAgent.remainingDistance <= _navAgent.stoppingDistance + 0.01f;
