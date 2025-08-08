@@ -13,7 +13,7 @@ namespace Sylpheed.UtilityAI.Sample
             if (!_navAgent) return false;
             
             _navAgent.isStopped = false;
-            _navAgent.SetDestination(Target.transform.position);
+            _navAgent.SetDestination(Decision.Target.transform.position);
             
             return true;
         }

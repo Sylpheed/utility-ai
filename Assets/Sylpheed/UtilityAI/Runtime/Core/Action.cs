@@ -4,8 +4,11 @@ namespace Sylpheed.UtilityAI
 {
     public abstract class Action
     {
-        public UtilityAgent Agent { get; private set; }
-        public UtilityTarget Target { get; private set; }
+        public Decision Decision { get; private set; }
+        public UtilityAgent Agent => Decision.Agent;
+        public UtilityTarget Target => Decision.Target;
+        public T Data<T>() where T : class => Decision.Data<T>();
+        public bool TryGetData<T>(out T data) where T : class => (data = Decision.Data<T>()) != null;
 
         #region Overridables
 
@@ -32,21 +35,18 @@ namespace Sylpheed.UtilityAI
         /// </summary>
         /// <returns></returns>
         protected virtual bool ShouldExit() { return false; }
-        internal virtual void ExtractData(object data) { }
         #endregion
 
         private System.Action _onExit;
         private bool _executed;
         
-        public void Execute(UtilityAgent agent, UtilityTarget target = null, object data = null, System.Action onExit = null)
+        public void Execute(Decision decision, System.Action onExit = null)
         {
             if (_executed) throw new System.Exception("Action is already executed");
             _executed = true;
             
-            Agent = agent;
-            Target = target;
+            Decision = decision;
             _onExit = onExit;
-            ExtractData(data);
             
             // Exit immediately if OnEnter failed
             if (!OnEnter())
@@ -79,21 +79,6 @@ namespace Sylpheed.UtilityAI
         {
             OnExit();
             _onExit?.Invoke();
-        }
-    }
-
-    /// <summary>
-    /// Action with reference to additional data.
-    /// </summary>
-    /// <typeparam name="TData"></typeparam>
-    public abstract class Action<TData> : Action
-    {
-        public TData Data { get; private set; }
-
-        internal sealed override void ExtractData(object data)
-        {
-            if (data is TData casted) Data = casted;
-            else throw new System.Exception("Failed to cast decision data.");
         }
     }
 }

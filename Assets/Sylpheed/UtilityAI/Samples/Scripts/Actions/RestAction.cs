@@ -21,7 +21,7 @@ namespace Sylpheed.UtilityAI.Sample
 
         protected override void OnUpdate(float deltaTime)
         {
-            _health.Heal(_camp.HealthRegenRate * deltaTime);
+            _health.Heal(_camp.HealthRegenRate * Time.deltaTime);
         }
     }
 }
