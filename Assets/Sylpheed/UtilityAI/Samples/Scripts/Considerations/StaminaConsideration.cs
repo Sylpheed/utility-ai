@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Sylpheed.UtilityAI.Sample
 {
-    [CreateAssetMenu(fileName = "Health", menuName = "Utility AI/Consideration/Samples/Stamina")]
+    [CreateAssetMenu(menuName = "Utility AI/Consideration/Samples/Stamina")]
     public class StaminaConsideration : CurveConsideration
     {
         [Header("Healthy")]

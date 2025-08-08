@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Sylpheed.UtilityAI.Considerations
 {
-    [CreateAssetMenu(fileName = "Distance To Target", menuName = "Utility AI/Consideration/Composite")]
+    [CreateAssetMenu(menuName = "Utility AI/Consideration/Composite")]
     public sealed class CompositeConsideration : Consideration
     {
         [Header("Composite")]

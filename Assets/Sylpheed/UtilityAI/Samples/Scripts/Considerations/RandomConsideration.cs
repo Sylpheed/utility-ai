@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Sylpheed.UtilityAI.Sample
 {
-    [CreateAssetMenu(fileName = "Random", menuName = "Utility AI/Consideration/Samples/Random")]
+    [CreateAssetMenu(menuName = "Utility AI/Consideration/Samples/Random")]
     public class RandomConsideration : CurveConsideration
     {
         [SerializeField] private float _min = 0f;

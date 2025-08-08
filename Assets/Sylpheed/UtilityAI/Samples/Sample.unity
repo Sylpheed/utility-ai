@@ -601,6 +601,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _healthRegenRate: 2
+  _staminaRegenRate: 1
 --- !u!1 &244372489
 GameObject:
   m_ObjectHideFlags: 0
@@ -2235,7 +2236,6 @@ GameObject:
   - component: {fileID: 1295679422}
   - component: {fileID: 1295679424}
   - component: {fileID: 1295679423}
-  - component: {fileID: 1295679425}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -2337,20 +2337,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _max: 100
---- !u!114 &1295679425
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1295679418}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d991b7ee474e49c79c9e92c7d16f6f9f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _depletionRate: 3
-  _depleteOnMoveOnly: 1
 --- !u!1 &1332651664
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 
 namespace Sylpheed.UtilityAI.Considerations
 {
@@ -6,12 +7,18 @@ namespace Sylpheed.UtilityAI.Considerations
     public class WithinTargetProximityConsideration : BoolConsideration
     {
         [Header("Within Target Proximity")] 
-        [SerializeField] private float _distanceThreshold;
+        [SerializeField] private float _distanceThreshold = 5f;
+        
+        private readonly RaycastHit[] _hits = new RaycastHit[30];
         
         protected override bool OnEvaluateAsBool(Decision decision)
         {
-            var distance = Vector3.Distance(decision.Agent.transform.position, decision.Target.transform.position);
-            return distance <= _distanceThreshold;
+            var size = Physics.SphereCastNonAlloc(decision.Agent.transform.position, _distanceThreshold, Vector3.down, _hits, _distanceThreshold);
+            if (size == 0) return false;
+            return _hits
+                .Take(size)
+                .Select(hit => hit.collider.GetComponentInParent<UtilityTarget>())
+                .Any(target => target == decision.Target);
         }
     }
 }
