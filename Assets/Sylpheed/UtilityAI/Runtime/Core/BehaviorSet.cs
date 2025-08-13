@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Sylpheed.UtilityAI
 {
     [CreateAssetMenu(fileName = "BehaviorSet", menuName = "Utility AI/Behavior Set")]
-    public class BehaviorSet : ScriptableObject
+    public sealed class BehaviorSet : ScriptableObject
     {
         [SerializeField] private List<Behavior> _behaviors;
         

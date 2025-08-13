@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Sylpheed.UtilityAI
 {
-    public class Decision
+    public sealed class Decision
     {
         public Behavior Behavior { get; private set; }
         

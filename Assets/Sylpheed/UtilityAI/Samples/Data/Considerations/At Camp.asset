@@ -17,4 +17,4 @@ MonoBehaviour:
   _requiresTarget: 1
   _requiredTargetTags:
   - {fileID: 11400000, guid: 947272906bba09149bc921ddfa16b4ac, type: 2}
-  _distanceThreshold: 5
+  _distanceThreshold: 2

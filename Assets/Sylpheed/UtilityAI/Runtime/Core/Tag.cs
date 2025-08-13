@@ -3,7 +3,7 @@
 namespace Sylpheed.UtilityAI
 {
     [CreateAssetMenu(fileName = "Tag", menuName = "Utility AI/Tag")]
-    public class Tag : ScriptableObject
+    public sealed class Tag : ScriptableObject
     {
         
     }

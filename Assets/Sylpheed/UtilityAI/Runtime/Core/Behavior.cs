@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Sylpheed.UtilityAI
 {
     [CreateAssetMenu(fileName = "Behavior", menuName = "Utility AI/Behavior")]
-    public class Behavior : ScriptableObject
+    public sealed class Behavior : ScriptableObject
     {
         [Header("Action")]
         [SerializeReference, SubclassSelector] private Action _action;
