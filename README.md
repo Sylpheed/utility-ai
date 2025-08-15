@@ -21,7 +21,7 @@ Utility AI implementation using Unity based on Dave Mark's Infinity Axis Utility
 Open `Package Manager` > `Add package from git URL` option and enter:
 
 ```
-https://github.com/DengRodil/UtilityAI.git?path=Assets/Sylpheed/UtilityAI
+https://github.com/Sylpheed/UtilityAI.git?path=Assets/Sylpheed/UtilityAI
 ```
 
 ## Dependencies
