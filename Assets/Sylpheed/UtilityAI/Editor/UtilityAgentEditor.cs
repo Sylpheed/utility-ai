@@ -84,9 +84,11 @@ namespace Sylpheed.UtilityAI.Editor
                 // Same decision
                 if (result.IsSameDecision && !Mathf.Approximately(_agent.SameDecisionScoreBonus, 1f))
                 {
+                    GUI.color = Color.lightSeaGreen;
                     EditorGUI.indentLevel++;
                     EditorGUILayout.LabelField($"[{_agent.SameDecisionScoreBonus * 100:N0}] Same Decision Bonus");
                     EditorGUI.indentLevel--;
+                    GUI.color = _defaultLabelColor;
                 }
             
                 // Draw considerations
@@ -101,6 +103,8 @@ namespace Sylpheed.UtilityAI.Editor
 
         private void DrawConsideration(IConsideration consideration, Decision decision)
         {
+            if (consideration.Ignored) return;
+            
             var hash = decision.GetConsiderationHash(consideration);
             var score = _agent.GetCachedConsiderationScore(decision, consideration);
             GUI.color = score switch
@@ -133,10 +137,10 @@ namespace Sylpheed.UtilityAI.Editor
                         DrawConsideration(child, decision);
                     }
                     EditorGUI.indentLevel--;
-                    
                 }
             }
 
+            // Reset label color
             GUI.color = _defaultLabelColor;
         }
     }

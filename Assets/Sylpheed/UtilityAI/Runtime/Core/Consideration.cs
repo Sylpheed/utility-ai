@@ -24,6 +24,7 @@ namespace Sylpheed.UtilityAI
         public bool RequiresTarget => _requiresTarget;
         public IReadOnlyCollection<Tag> RequiredTargetTags => _requiredTargetTags;
         public virtual IEnumerable<IConsideration> Children => null;
+        public bool Ignored => false;
 
         #region Overridables
         protected abstract float OnEvaluate(Decision decision);

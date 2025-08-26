@@ -18,6 +18,7 @@ namespace Sylpheed.UtilityAI
         public bool RequiresTarget => _consideration.RequiresTarget;
         public IReadOnlyCollection<Tag> RequiredTargetTags => _consideration.RequiredTargetTags;
         public IEnumerable<IConsideration> Children => _consideration.Children;
+        public bool Ignored => _mute;
 
         public float Evaluate(Decision decision)
         {
