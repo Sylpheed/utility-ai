@@ -7,8 +7,8 @@ namespace Sylpheed.UtilityAI
         public Decision Decision { get; private set; }
         public UtilityAgent Agent => Decision.Agent;
         public UtilityTarget Target => Decision.Target;
-        public T Data<T>() where T : class => Decision.Data<T>();
-        public bool TryGetData<T>(out T data) where T : class => (data = Decision.Data<T>()) != null;
+        public T GetData<T>() where T : class => Decision.GetData<T>();
+        public bool TryGetData<T>(out T data) where T : class => (data = Decision.GetData<T>()) != null;
 
         #region Overridables
 
@@ -37,16 +37,16 @@ namespace Sylpheed.UtilityAI
         protected virtual bool ShouldExit() { return false; }
         #endregion
 
-        private System.Action _onExit;
+        private System.Action _onConcluded;
         private bool _executed;
         
-        public void Execute(Decision decision, System.Action onExit = null)
+        public void Execute(Decision decision, System.Action onConcluded = null)
         {
             if (_executed) throw new System.Exception("Action is already executed");
             _executed = true;
             
             Decision = decision;
-            _onExit = onExit;
+            _onConcluded = onConcluded;
             
             // Exit immediately if OnEnter failed
             if (!OnEnter())
@@ -64,7 +64,7 @@ namespace Sylpheed.UtilityAI
         {
             var shouldExit = ShouldExit();
             if (!shouldExit) OnUpdate(deltaTime);
-            else Exit();
+            else Conclude();
         }
         
         public void FixedUpdate(float deltaTime)
@@ -75,10 +75,10 @@ namespace Sylpheed.UtilityAI
         /// <summary>
         /// Call this whenever the action is concluded either successfully or prematurely. This will force the agent to come up with a new decision.
         /// </summary>
-        protected void Exit()
+        protected void Conclude()
         {
             OnExit();
-            _onExit?.Invoke();
+            _onConcluded?.Invoke();
         }
     }
 }

@@ -18,11 +18,14 @@ namespace Sylpheed.UtilityAI
         [Tooltip("When set, opt-out if the target to be evaluated doesn't contain all the specified tags.")]
         [SerializeField] private Tag[] _requiredTargetTags = Array.Empty<Tag>();
 
+        public string Name => name;
         public int Priority => _priority;
         public virtual bool ShouldCacheScore => _shouldCacheScore;
         public bool RequiresTarget => _requiresTarget;
         public IReadOnlyCollection<Tag> RequiredTargetTags => _requiredTargetTags;
-        
+        public virtual IEnumerable<IConsideration> Children => null;
+        public bool Ignored => false;
+
         #region Overridables
         protected abstract float OnEvaluate(Decision decision);
         #endregion

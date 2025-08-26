@@ -11,12 +11,17 @@ namespace Sylpheed.UtilityAI
         [SerializeField] private float _targetSearchRadius = 100f;
         [SerializeField] private float _maxTargetsPerDecision = 12;
         [SerializeField] private float _decisionInterval = 1f;
+        [SerializeField] private bool _useWeightedScoreProbability = true;
+        [Tooltip("If a decision is still being enacted, modify the score of the current decision.")]
+        [SerializeField] private float _sameDecisionScoreBonus = 1.25f;
         
         [Header("Debug")]
         [SerializeField] private bool _logToConsole;
 
         public IReadOnlyList<UtilityTarget> Targets { get; private set; } = new List<UtilityTarget>();
         public Decision CurrentDecision { get; private set; }
+        public IReadOnlyCollection<DecisionResult> DecisionResults => _decisionResults;
+        public float SameDecisionScoreBonus => _sameDecisionScoreBonus;
         
         private List<BehaviorSet> _behaviorSets = new();
         private List<Behavior> _behaviors = new();
@@ -24,6 +29,8 @@ namespace Sylpheed.UtilityAI
         private float _decisionTimer;
         private readonly Dictionary<int, float> _scoreCache = new(); // Key is hash of agent, consideration, data, and target
         private Action _currentAction;
+        private Decision _previousDecision;
+        private List<DecisionResult> _decisionResults = new();
 
         private void Awake()
         {
@@ -47,7 +54,6 @@ namespace Sylpheed.UtilityAI
             if (_decisionTimer >= _decisionInterval)
             {
                 Think();
-                _decisionTimer = 0;
             }
             else
             {
@@ -57,6 +63,7 @@ namespace Sylpheed.UtilityAI
 
         private void Think()
         {
+            _decisionTimer = 0;
             var decisions = BuildDecisions();
             var decision = Decide(decisions);
             EnactDecision(decision);
@@ -78,10 +85,10 @@ namespace Sylpheed.UtilityAI
             
             // Enact decision
             Log($"enacted [{decision.Behavior.name}]. Score: {decision.Score:P2}");
+            _previousDecision = CurrentDecision;
             CurrentDecision = decision;
-            _currentAction = decision.Enact(onExit: () =>
+            _currentAction = decision.Enact(onConcluded: () =>
             {
-                // TODO: May cause infinite loop when decision always exits
                 // Come up with a new decision once current action has concluded
                 CurrentDecision = null;
                 Think();
@@ -122,29 +129,55 @@ namespace Sylpheed.UtilityAI
         {
             if (!decisions.Any()) return null;
             
-            // Clear score cache
+            // Clear
             _scoreCache.Clear();
+            _decisionResults.Clear();
             
             // Evaluate all decisions
-            Decision bestDecision = null;
+            DecisionResult bestResult = null;
             var bestScore = 0f;
             foreach (var decision in decisions)
             {
+                // Cache result
+                var result = new DecisionResult
+                {
+                    Decision = decision,
+                    IsSameDecision = Decision.IsSimilar(CurrentDecision, decision),
+                };
+                _decisionResults.Add(result);
+                
                 // Ignore decision if it can no longer beat the current highest score
                 if (decision.MaxScore < bestScore) continue;
                 
                 // Get score for this decision
-                var score = decision.Evaluate(bestScore, _scoreCache);
+                var bonus = EvaluateSimilarDecisionBonus(decision);
+                var score = decision.Evaluate(bestScore, bonus, _scoreCache);
                 
                 // Decision beats current best decision. Update best decision.
                 if (score > bestScore)
                 {
-                    bestDecision = decision;
+                    bestResult = result;
                     bestScore = score;
                 }
             }
+
+            if (bestResult != null) bestResult.Best = true;
+            return bestResult?.Decision;
+        }
+
+        private float EvaluateSimilarDecisionBonus(Decision decision)
+        {
+            if (!Decision.IsSimilar(CurrentDecision, decision)) return 1f;
+            if (CurrentDecision.Concluded) return 1f;
             
-            return bestDecision;
+            return _sameDecisionScoreBonus;
+        }
+
+        public float GetCachedConsiderationScore(Decision decision, IConsideration consideration)
+        {
+            var hash = decision.GetConsiderationHash(consideration);
+            _scoreCache.TryGetValue(hash, out var score);
+            return score;
         }
 
         private IReadOnlyList<Decision> BuildDecisions()
@@ -166,6 +199,7 @@ namespace Sylpheed.UtilityAI
             var targets = _searchHits
                 .Take(size)
                 .Select(hit => hit.collider.GetComponentInParent<UtilityTarget>())
+                .Distinct()
                 .Where(target => target && target.enabled)
                 .OrderBy(target => target.DistanceFromAgent(this))
                 .ToList();

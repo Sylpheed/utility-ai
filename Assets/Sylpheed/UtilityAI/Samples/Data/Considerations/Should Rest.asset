@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0b1ccf01e6e449c916ce6cb511ec0d7, type: 3}
+  m_Name: Should Rest
+  m_EditorClassIdentifier: 
+  _priority: 0
+  _shouldCacheScore: 1
+  _requiresTarget: 0
+  _requiredTargetTags: []
+  _considerations:
+  - _consideration: {fileID: 11400000, guid: e0335610c4f52c348b7f8af2ed5b6b23, type: 2}
+    _inverted: 1
+    _mute: 0
+  - _consideration: {fileID: 11400000, guid: 8a2cb7dc5c629004d85a1190620b64ae, type: 2}
+    _inverted: 1
+    _mute: 0
+  - _consideration: {fileID: 11400000, guid: a84b6268b9287b04ca865416b4579fce, type: 2}
+    _inverted: 0
+    _mute: 0
