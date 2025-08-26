@@ -175,7 +175,7 @@ namespace Sylpheed.UtilityAI
 
         public float GetCachedConsiderationScore(Decision decision, IConsideration consideration)
         {
-            var hash = decision.BuildConsiderationHash(consideration);
+            var hash = decision.GetConsiderationHash(consideration);
             _scoreCache.TryGetValue(hash, out var score);
             return score;
         }

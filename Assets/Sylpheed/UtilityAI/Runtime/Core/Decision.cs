@@ -124,7 +124,7 @@ namespace Sylpheed.UtilityAI
         private float EvaluateConsideration(IConsideration consideration, IDictionary<int, float> scoreCache)
         {
             // Get cached score
-            var hash = BuildConsiderationHash(consideration);
+            var hash = GetConsiderationHash(consideration);
             var cached = scoreCache.TryGetValue(hash, out var score);
 
             // Skip evaluation if score is already cached.
@@ -136,7 +136,7 @@ namespace Sylpheed.UtilityAI
             return score;
         }
 
-        public int BuildConsiderationHash(IConsideration consideration)
+        public int GetConsiderationHash(IConsideration consideration)
         {
             var hash = Hash;
             hash = hash * 23 + (consideration?.GetHashCode() ?? 0);

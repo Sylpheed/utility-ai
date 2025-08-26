@@ -12,12 +12,13 @@ namespace Sylpheed.UtilityAI.Editor
         private struct LabelColors
         {
             public static readonly Color Best = Color.green;
-            public static readonly Color Scored = Color.orange;
-            public static readonly Color Skipped = Color.red;
+            public static Color Scored => GUI.color;
+            public static readonly Color Skipped = Color.orange;
             public static readonly Color Unscored = Color.gray;
         }
         
-        private static readonly Dictionary<float, bool> DecisionResultFoldoutStates = new();
+        private static readonly Dictionary<int, bool> DecisionResultFoldoutStates = new();
+        private static readonly Dictionary<int, bool> ConsiderationFoldoutStates = new();
         
         private UtilityAgent _agent;
         private Color _defaultLabelColor;
@@ -65,10 +66,10 @@ namespace Sylpheed.UtilityAI.Editor
             }
             else GUI.color = LabelColors.Unscored;
 
+            // Foldout header text
             var text = $"[{result.Decision.Score * 100:N0}] {result.Decision.Behavior.name}\t";
             if (result.Decision.Target) text += $" Target: {result.Decision.Target.name}";
             if (result.Decision.Data != null) text += $" Data: {result.Decision.Data}";
-            // EditorGUILayout.LabelField(text, EditorStyles.boldLabel);
             
             // Check foldout state cache. Create a new entry if it doesn't exist yet.
             if (!DecisionResultFoldoutStates.TryGetValue(result.Hash, out _))
@@ -100,19 +101,43 @@ namespace Sylpheed.UtilityAI.Editor
 
         private void DrawConsideration(IConsideration consideration, Decision decision)
         {
-            var text = $"[{_agent.GetCachedConsiderationScore(decision, consideration) * 100:N0}] {consideration.Name}";
-            EditorGUILayout.LabelField(text);
-
-            // Draw child recursively
-            if (consideration.Children != null)
+            var hash = decision.GetConsiderationHash(consideration);
+            var score = _agent.GetCachedConsiderationScore(decision, consideration);
+            GUI.color = score switch
             {
-                EditorGUI.indentLevel++;
-                foreach (var child in consideration.Children)
-                {
-                    DrawConsideration(child, decision);
-                }
-                EditorGUI.indentLevel--;
+                >= 1f => Color.green,
+                <= 0f => Color.gray,
+                _ => _defaultLabelColor
+            };
+
+            // Label
+            var text = $"[{_agent.GetCachedConsiderationScore(decision, consideration) * 100:N0}] {consideration.Name}";
+
+            if (consideration.Children == null)
+            {
+                EditorGUILayout.LabelField(text);
             }
+            else
+            {
+                // Check foldout state cache. Create a new entry if it doesn't exist yet.
+                if (!ConsiderationFoldoutStates.TryGetValue(hash, out _))
+                    ConsiderationFoldoutStates[hash] = false;
+                ConsiderationFoldoutStates[hash] = EditorGUILayout.Foldout(ConsiderationFoldoutStates[hash], text, true);
+
+                // Draw child recursively if expanded
+                if (ConsiderationFoldoutStates[hash])
+                {
+                    EditorGUI.indentLevel++;
+                    foreach (var child in consideration.Children)
+                    {
+                        DrawConsideration(child, decision);
+                    }
+                    EditorGUI.indentLevel--;
+                    
+                }
+            }
+
+            GUI.color = _defaultLabelColor;
         }
     }
 }
