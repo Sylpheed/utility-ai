@@ -17,10 +17,16 @@ namespace Sylpheed.UtilityAI.Considerations
 
         protected override float OnEvaluate(Decision decision)
         {
-            var score = 1f;
+            var totalScore = 1f;
             foreach (var consideration in _considerations)
-                score *= consideration.Evaluate(decision);
-            return score;
+            {
+                var score = consideration.Evaluate(decision);
+                totalScore *= score;
+                
+                // Update the cache manually. Decision cannot automatically cache nested considerations
+                decision.UpdateScoreCache(consideration, score);
+            }
+            return totalScore;
         }
     }
 }

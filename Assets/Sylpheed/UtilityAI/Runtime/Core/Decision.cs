@@ -45,6 +45,8 @@ namespace Sylpheed.UtilityAI
         /// It will not be concluded if the UtilityAgent changed Decision while a Decision is still being enacted.
         /// </summary>
         public bool Concluded { get; private set; }
+
+        private IDictionary<int, float> _scoreCache;
         
         // TODO: Move to a different builder class
         #region Builder
@@ -83,6 +85,7 @@ namespace Sylpheed.UtilityAI
         public float Evaluate(float scoreThreshold, float agentBonus, IDictionary<int, float> scoreCache)
         {
             Scored = true;
+            _scoreCache = scoreCache;
             
             // Evaluate each consideration
             var finalScore = 1f;
@@ -136,11 +139,28 @@ namespace Sylpheed.UtilityAI
             return score;
         }
 
+        /// <summary>
+        /// Get a unique identifier for consideration bound to a decision. Mostly used for score caching.
+        /// </summary>
+        /// <param name="consideration"></param>
+        /// <returns></returns>
         public int GetConsiderationHash(IConsideration consideration)
         {
             var hash = Hash;
             hash = hash * 23 + (consideration?.GetHashCode() ?? 0);
             return hash;
+        }
+
+        /// <summary>
+        /// Manually updates consideration score cache. Scores are automatically cached for top-level considerations within the behavior. This should only be called internally.
+        /// </summary>
+        /// <param name="consideration"></param>
+        /// <param name="score"></param>
+        public void UpdateScoreCache(IConsideration consideration, float score)
+        {
+            if (_scoreCache == null) throw new System.NullReferenceException(nameof(_scoreCache));
+            var hash = GetConsiderationHash(consideration);
+            _scoreCache[hash] = score;
         }
 
         public Action Enact(System.Action onConcluded = null)
