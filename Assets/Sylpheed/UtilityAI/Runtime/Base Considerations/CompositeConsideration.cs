@@ -8,7 +8,7 @@ namespace Sylpheed.UtilityAI.Considerations
     public sealed class CompositeConsideration : Consideration
     {
         [Header("Composite")]
-        [SerializeField] private Consideration[] _considerations;
+        [SerializeField] private ConsiderationDecorator[] _considerations;
 
         public override bool ShouldCacheScore 
             => base.ShouldCacheScore && _considerations.All(consideration => consideration.ShouldCacheScore);
