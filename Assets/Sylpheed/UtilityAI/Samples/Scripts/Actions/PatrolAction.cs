@@ -32,7 +32,7 @@ namespace Sylpheed.UtilityAI.Sample
 
         protected override void OnUpdate(float deltaTime)
         {
-            if (_stamina) _stamina.Current -= deltaTime;
+            if (_stamina) _stamina.Current -= _staminaCost * deltaTime;
         }
 
         protected override bool ShouldExit()

@@ -18,6 +18,19 @@ namespace Sylpheed.UtilityAI
         public object Data => _data;
         public T GetData<T>() where T : class => _data as T;
         public bool TryGetData<T>(out T data) where T : class => (data = _data as T) != null;
+
+        public int Hash
+        {
+            get
+            {
+                var hash = 17;
+                hash = hash * 23 + (Behavior?.GetHashCode() ?? 0);
+                hash = hash * 23 + (Agent?.GetHashCode() ?? 0);
+                hash = hash * 23 + (Target?.GetHashCode() ?? 0);
+                hash = hash * 23 + (_data?.GetHashCode() ?? 0);
+                return hash;
+            }
+        }
         
         /// <summary>
         /// A Decision is scored if the Evaluate function was called regardless of its result.
@@ -125,10 +138,7 @@ namespace Sylpheed.UtilityAI
 
         public int BuildConsiderationHash(IConsideration consideration)
         {
-            var hash = 17;
-            hash = hash * 23 + (Agent?.GetHashCode() ?? 0);
-            hash = hash * 23 + (Target?.GetHashCode() ?? 0);
-            hash = hash * 23 + (_data?.GetHashCode() ?? 0);
+            var hash = Hash;
             hash = hash * 23 + (consideration?.GetHashCode() ?? 0);
             return hash;
         }

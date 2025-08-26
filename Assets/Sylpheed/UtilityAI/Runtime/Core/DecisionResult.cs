@@ -10,5 +10,6 @@
         public bool Skipped => Decision.Skipped;
         public bool Scored => Decision.Scored;
         public float Score => Decision.Score;
+        public int Hash => Decision.Hash;
     }
 }
