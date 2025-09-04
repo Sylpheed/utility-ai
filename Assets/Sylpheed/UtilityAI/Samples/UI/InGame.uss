@@ -1,0 +1,15 @@
+:root {
+}
+
+.statusLabel {
+    -unity-font-style: bold;
+    color: rgb(229, 229, 229);
+    width: 75px;
+}
+
+.healthBar {
+}
+
+#unity-progress-bar {
+    color: rgb(0, 0, 0);
+}

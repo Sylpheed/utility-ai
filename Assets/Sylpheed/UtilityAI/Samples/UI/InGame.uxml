@@ -1,0 +1,37 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Sylpheed/UtilityAI/Samples/UI/InGame.uss?fileID=7433441132597879392&amp;guid=b2acf22fa4642da4aa64c72c4fcb92a5&amp;type=3#InGame" />
+    <ui:VisualElement name="VisualElement" data-source-type="Sylpheed.UtilityAI.Sample.UI.InGameViewModel, Sylpheed.UtilityAI.Samples" style="flex-grow: 1;">
+        <ui:VisualElement name="Status" style="flex-grow: initial; background-color: rgba(0, 0, 0, 0.59); width: 500px; height: auto; align-items: stretch; justify-content: flex-start; align-self: auto; align-content: flex-start; display: flex; visibility: visible; padding-top: 15px; padding-right: 15px; padding-bottom: 15px; padding-left: 15px;">
+            <ui:VisualElement name="HealthBar" style="flex-grow: initial; align-items: stretch; align-content: flex-start; flex-direction: row; justify-content: flex-start; height: auto;">
+                <ui:Label text="Health" name="Label" class="statusLabel" />
+                <ui:ProgressBar title="999 / 999" high-value="1" class="healthBar" style="flex-direction: column; width: auto; color: rgb(229, 229, 229); flex-grow: 1;">
+                    <Bindings>
+                        <ui:DataBinding property="title" binding-mode="ToTarget" data-source-path="HealthText" />
+                        <ui:DataBinding property="highValue" data-source-path="HealthMax" binding-mode="ToTarget" />
+                        <ui:DataBinding property="value" data-source-path="HealthCurrent" binding-mode="ToTarget" />
+                    </Bindings>
+                </ui:ProgressBar>
+            </ui:VisualElement>
+            <ui:VisualElement name="StaminaBar" style="flex-grow: initial; align-items: stretch; align-content: flex-start; flex-direction: row; justify-content: flex-start;">
+                <ui:Label text="Stamina" class="statusLabel" />
+                <ui:ProgressBar value="0.2" title="999 / 999" high-value="1" data-source-type="Sylpheed.UtilityAI.Sample.UI.InGameViewModel, Sylpheed.UtilityAI.Samples" class="healthBar" style="flex-direction: column; color: rgb(229, 229, 229); flex-grow: 1;">
+                    <Bindings>
+                        <ui:DataBinding property="highValue" data-source-path="StaminaMax" binding-mode="ToTarget" />
+                        <ui:DataBinding property="value" data-source-path="StaminaCurrent" binding-mode="ToTarget" />
+                        <ui:DataBinding property="title" data-source-path="StaminaText" binding-mode="ToTarget" />
+                    </Bindings>
+                </ui:ProgressBar>
+            </ui:VisualElement>
+            <ui:VisualElement name="StaminaBar" data-source-path="Stamina" style="flex-grow: initial; align-items: stretch; align-content: flex-start; flex-direction: row; justify-content: flex-start;">
+                <ui:Label text="Stamina" class="statusLabel" />
+                <ui:ProgressBar title="999 / 999" class="healthBar" style="flex-direction: column; color: rgb(229, 229, 229); flex-grow: 1;">
+                    <Bindings>
+                        <ui:DataBinding property="title" data-source-path="Text" binding-mode="ToTarget" />
+                        <ui:DataBinding property="highValue" data-source-path="Max" binding-mode="ToTarget" />
+                        <ui:DataBinding property="value" data-source-path="Current" binding-mode="ToTarget" />
+                    </Bindings>
+                </ui:ProgressBar>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
