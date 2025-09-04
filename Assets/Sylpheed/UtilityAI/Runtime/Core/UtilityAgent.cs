@@ -29,7 +29,7 @@ namespace Sylpheed.UtilityAI
         private float _decisionTimer;
         private readonly Dictionary<int, float> _scoreCache = new(); // Key is hash of agent, consideration, data, and target
         private Action _currentAction;
-        private Decision _previousDecision;
+        private Decision _lastEnactedDecision;
         private List<DecisionResult> _decisionResults = new();
 
         private void Awake()
@@ -85,7 +85,7 @@ namespace Sylpheed.UtilityAI
             
             // Enact decision
             Log($"enacted [{decision.Behavior.name}]. Score: {decision.Score:P2}");
-            _previousDecision = CurrentDecision;
+            _lastEnactedDecision = decision;
             CurrentDecision = decision;
             _currentAction = decision.Enact(onConcluded: () =>
             {
@@ -142,7 +142,7 @@ namespace Sylpheed.UtilityAI
                 var result = new DecisionResult
                 {
                     Decision = decision,
-                    IsSameDecision = Decision.IsSimilar(CurrentDecision, decision),
+                    IsSameDecision = Decision.IsSimilar(_lastEnactedDecision, decision),
                 };
                 _decisionResults.Add(result);
                 
@@ -150,7 +150,7 @@ namespace Sylpheed.UtilityAI
                 if (decision.MaxScore < bestScore) continue;
                 
                 // Get score for this decision
-                var bonus = EvaluateSimilarDecisionBonus(decision);
+                var bonus = result.IsSameDecision ? _sameDecisionScoreBonus : 1f;
                 var score = decision.Evaluate(bestScore, bonus, _scoreCache);
                 
                 // Decision beats current best decision. Update best decision.
