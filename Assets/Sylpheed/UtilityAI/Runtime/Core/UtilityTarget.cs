@@ -7,7 +7,7 @@ namespace Sylpheed.UtilityAI
     /// <summary>
     /// Attached to GameObjects that can be queried by the UtilityAgent as target.
     /// </summary>
-    public class UtilityTarget : MonoBehaviour
+    public sealed class UtilityTarget : MonoBehaviour
     {
         [SerializeField] private List<Tag> _tags;
         

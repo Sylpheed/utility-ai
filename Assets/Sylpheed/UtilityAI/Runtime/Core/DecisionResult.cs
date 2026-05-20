@@ -1,6 +1,6 @@
 ﻿namespace Sylpheed.UtilityAI
 {
-    public class DecisionResult
+    public sealed class DecisionResult
     {
         public Decision Decision { get; set; }
         public bool Best { get; set; }

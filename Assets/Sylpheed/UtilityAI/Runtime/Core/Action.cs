@@ -1,7 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Sylpheed.UtilityAI
 {
+    [Serializable]
     public abstract class Action
     {
         public Decision Decision { get; private set; }
